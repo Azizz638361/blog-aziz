@@ -1,0 +1,732 @@
+<!DOCTYPE html><html lang="id"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lippbyte — Dokumentasi Belajar Praktik: Aplikasi CRUD PHP Native">
+  <title>Laravel Blog</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- PrismJS Theme -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- FOUC Prevention -->
+  
+</head>
+<body>
+  <!-- Reading Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-fill" id="topFill"></div>
+  </div>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button class="hamburger-btn" id="sidebarToggle" aria-label="Toggle Sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <a href="index.html" class="nav-logo">
+          Blog Dokumentasi
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">PHP Native</a>
+        <a href="laravel.html" class="nav-link active">Laravel</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Sidebar Backdrop for Mobile -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- App Container (Sidebar + Content) -->
+  <div class="app-container">
+    <!-- Left Sidebar -->
+    <aside class="left-sidebar" id="leftSidebar">
+      <div class="sidebar-header-mobile">
+        <a href="index.html" class="nav-logo">
+          Lippbyte <span class="logo-badge">Notes</span>
+        </a>
+        <button class="close-sidebar-btn" id="closeSidebar" aria-label="Close Sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <div>
+          <div class="sidebar-group-title">Materi Pembelajaran</div>
+          <ul class="sidebar-links">
+            <li class="sidebar-item-parent">
+              <a href="index.html" class="sidebar-link">
+                <span class="icon"></span> PHP Native CRUD
+              </a>
+              <ul class="sidebar-sublinks collapsed" id="phpSublinks">
+                <li><a href="index.html#part-1" class="sidebar-sublink-item" data-section="part-1">1. Login &amp; Auth</a></li>
+                <li><a href="index.html#part-2" class="sidebar-sublink-item" data-section="part-2">2. Search &amp; Sort</a></li>
+                <li><a href="index.html#part-3" class="sidebar-sublink-item" data-section="part-3">3. Upload File</a></li>
+                <li><a href="index.html#part-4" class="sidebar-sublink-item" data-section="part-4">4. Modal &amp; Ajax</a></li>
+                <li><a href="index.html#part-5" class="sidebar-sublink-item" data-section="part-5">5. Relasi 2 Tabel</a></li>
+              </ul>
+            </li>
+            <li class="sidebar-item-parent">
+              <a href="laravel.html" class="sidebar-link active-page">
+                <span class="icon"></span> Laravel Framework
+              </a>
+              <ul class="sidebar-sublinks" id="laravelSublinks">
+                <li><a href="#pengenalan" class="sidebar-sublink-item" data-section="pengenalan">Pengenalan Laravel</a></li>
+                <li><a href="#part1" class="sidebar-sublink-item" data-section="part1">1. Membuat Project</a></li>
+                <li><a href="#part2" class="sidebar-sublink-item" data-section="part2">2. Database Migration</a></li>
+                <li><a href="#part3" class="sidebar-sublink-item" data-section="part3">3. Controller &amp; Facade DB</a></li>
+                <li><a href="#part4" class="sidebar-sublink-item" data-section="part4">4. Create Data</a></li>
+                <li><a href="#part5" class="sidebar-sublink-item" data-section="part5">5. Edit &amp; Delete Data</a></li>
+                <li><a href="#part6" class="sidebar-sublink-item" data-section="part6">6. Eloquent &amp; ORM</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT WRAPPER ===== -->
+    <div class="main-content-wrapper">
+      <main class="main-content"><div class="identity-box">
+      <h3>Data Diri</h3>
+      <p><strong>Nama:</strong> Muhammad Aziz Zakaria</p>
+      <p><strong>Kelas:</strong> XI RPL 2</p>
+    </div><section class="part-section" id="pengenalan">
+            <div class="part-header">
+              <p class="part-label"><span class="part-label-line"></span> Pengenalan Laravel</p>
+              <h1 class="part-title">Pengenalan Laravel</h1>
+              <div class="part-meta">
+                <span>2026-05-03</span>
+              </div>
+              <div class="part-intro">Sebelum mulai membuat proyek, penting untuk memahami apa itu Laravel, mengapa framework ini digunakan secara luas, dan bagaimana ia membantu developer membangun aplikasi web dengan lebih cepat dan terstruktur.</div>
+            </div>
+            <div class="content-body"><div><div>🎯 Tujuan Pembelajaran</div><div><ul><li>Apa itu Framework dalam Pemrograman</li><li>Memahami definisi dan sejarah singkat Laravel sebagai PHP framework</li><li>Mengenal fitur-fitur utama yang membuat Laravel populer di industri</li><li>Memahami konsep arsitektur MVC (Model-View-Controller)</li><li>Mengetahui kapan dan mengapa Laravel digunakan dalam proyek web</li></ul></div></div><h2 id="apa-itu-framework">Apa itu Framework?</h2><p><strong>Framework</strong> dalam bahasa Indonesia berarti kerangka. Biasanya kita kenal juga dengan istilah <strong>template</strong> atau <strong>blueprint</strong>. Kerangka diperlukan sebelum membuat atau membangun sesuatu. Kerangka dibuat untuk mempermudah pekerjaan membuat sesuatu.</p>
+<div class="callout callout-note"><span class="callout-icon">📝</span><div class="callout-body"><p class="callout-title">Note ✨</p><div> 
+Dalam dunia pemrograman, Framework adalah sebuah software untuk memudahkan programmer membuat aplikasi atau program pada web. Dengan menggunakan framework, sebuah aplikasi akan terstruktur dan tersusun rapi.</div></div></div><p>Hari ini, kita akan khusus membahas <strong>Framework PHP</strong>. <strong>PHP</strong> <em>adalah sebuah bahasa pemrograman open-source yang berjalan di sisi server (server-side) khusus untuk pengembangan aplikasi web dinamis dan interaktif.</em> Seperti yang sudah diketahui, framework diperlukan developer untuk membuat web/aplikasi yang terstruktur. Diantara banyak framwork PHP yang ada, <strong>Laravel</strong> merupakan framework yang saat ini paling populer.</p>
+
+<div class="callout callout-note"><span class="callout-icon">📝</span><div class="callout-body"><p class="callout-title">Note ✨</p><div> 
+Hingga awal 2026, repositori utama Laravel telah melampaui 80.000+ stars, menjadikannya framework PHP dengan dukungan komunitas terbesar di platform tersebut.</div></div></div><h2 id="apa-itu-laravel">Apa itu Laravel?</h2>
+<p><strong>Laravel</strong> adalah PHP web framework yang bersifat open-source, dibuat oleh <strong>Taylor Otwell</strong> dan pertama kali dirilis pada tahun 2011. Laravel dirancang untuk membuat proses pengembangan web menjadi lebih menyenangkan tanpa mengorbankan fungsionalitas aplikasi.</p>
+<p>Framework ini mengikuti pola arsitektur <strong>MVC (Model-View-Controller)</strong> dan menyediakan berbagai fitur bawaan seperti routing, autentikasi, session, caching, dan masih banyak lagi sehingga developer tidak perlu membangun semuanya dari nol.</p>
+
+<h2 id="fitur-unggulan-laravel">Fitur Unggulan Laravel</h2><p>Beberapa fitur yang membuat Laravel menonjol dibanding framework lain:</p>
+<ul><li>Command Line Tool (Artisan) --- Fitur Command Line untuk memudahkan programmer melakukan beberapa pekerjaan.</li><li>RESTful Routing --- RESTful adalah cara baru dalam mengelola request seperti GET, POST, PUT, PATCH, DELETE, STORE.</li><li>Composer --- Composer adalah Dependency Management PHP yang membantu programmer untuk menggunakan library.</li><li>Beautiful Template Engine (Blade) ---  Laravel dilengkapi dengan template engine dengan nama Blade Template Engine untuk memudahkan penggabungan kode PHP pada HTML.</li><li>Database Migration ---  Fitur untuk menjaga histori migrasi database (CREATE, ALTER, DROP), mengaplikasikan migrasi baru ataupun mengembalikannya.</li><li>Eloquent ORM --- Fitur Eloquent ORM (Object Relational Model) memungkinkan penulisan kode yang berhubungan dengan objek (Entitas / Tabel pada Database) dioperasikan menggunakan konsep OOP.</li></ul><h2 id="arsitektur-mvc">Arsitektur MVC</h2><p>Laravel mengikuti pola <strong>Model-View-Controller</strong>. Setiap lapisan memiliki tanggung jawab yang jelas dan terpisah:</p>
+<ul><li>Model --- Mewakili data dan logika bisnis. Berinteraksi langsung dengan database (insert, update, delete).</li><li>View --- Bagian yang bertugas menampilkan informasi User Interface kepada pengguna, seperti halaman HTML atau tampilan aplikasi.</li><li>Controller --- Bagian yang menghubungkan Model dan View. Controller menerima instruksi dari pengguna, memproses data melalui Model, dan memilih View untuk ditampilkan.</li></ul></div>
+            <div><p>Refleksi</p><p>Renungkan materi ini:</p><ul><li>Setelah membaca modul dan memahami materi, saya dapat mengetahui framework dapat sangat membantu pada pemrograman, utamanya dalam membuat aplikasi web yang terstruktur dan terkonsep.</li><li>Saya dapat mengetahui bahwa Laravel merupakan salah satu framework bahasa pemrograman PHP yang paling populer saat ini.</li><li>Saya dapat memahami dari sejarah hingga fitur yang terdapat pada laravel.</li><li>Saya juga dapat memahami bahwa konsep MVC yang digunakan pada banyak framework sangat memudahkan programmer.</li></ul></div><div class="references-box"><div class="references-header">📚 Referensi</div><ul class="references-list"><li><span class="ref-num">1</span><span class="ref-text"><a href="https://drive.google.com/file/d/1hhsXrZ0v-vEfDpVQNJr8uD3s719zSZH0/view" target="_blank">Modul Pembelajaran </a></span></li><li><span class="ref-num">2</span><span class="ref-text"><a href="https://youtu.be/CUEq8zLwu7c?si=Cfas11g3GF2Q8mHS" target="_blank">Video Pembelajaran</a></span></li><li><span class="ref-num">3</span><span class="ref-text"><a href="https://laravel.com/docs" target="_blank">Laravel Documentation</a></span></li></ul></div>
+            <div class="part-footer-nav"><span></span><a href="#part1" class="part-nav-btn">Membuat Project Laravel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a></div>
+          </section><section class="part-section" id="part1">
+            <div class="part-header">
+              <p class="part-label"><span class="part-label-line"></span> Membuat Project Laravel</p>
+              <h1 class="part-title">Membuat Project Laravel</h1>
+              <div class="part-meta">
+                <span>2026-05-07</span>
+              </div>
+              <div class="part-intro">Di part ini kita akan mulai menginstal dan membuat project Laravel. Kita juga akan belajar memahami struktur folder yang dihasilkan, serta berkenalan dengan Artisan sebagai CLI tool andalan Laravel.</div>
+            </div>
+            <div class="content-body"><div><div>🎯 Tujuan Pembelajaran</div><div><ul><li>Menginstal dan membuat project Laravel</li><li>Memahami struktur folder dan fungsi masing-masing direktori</li><li>Mengenal perintah-perintah dasar Artisan CLI</li></ul></div></div><h2 id="persiapan">Persiapan</h2><p>Pastikan sudah menginstal minimal versi <strong>PHP 8.2+</strong> dan <strong>Composer</strong> sebelum memulai. Selain itu, persiapkan juga local server environtment, seperti <strong>xampp</strong> atau <strong>laragon</strong> serta gunakan code editor seperti <strong>visual studio code</strong> atau <strong>sublime text</strong>.</p>
+<p>Periksa apakah sudah menginstal PHP dan Composer dengan perintah berikut:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none"># Cek versi PHP
+php -v
+
+# Cek versi Composer
+composer -v</code></pre></div><p>Jika belum menginstal PHP dan Composer, silahkan install terlebih dahulu <a href="https://www.php.net/downloads.php">PHP</a> dan <a href="https://getcomposer.org/download/">Composer</a>.</p>
+<h2 id="instalasi-laravel">Instalasi Laravel</h2><p>Setelah semua tools telah dipersiapkan, sekarang kita langsung saja membuat project Laravel nya. Berikut adalah perintah untuk membuat project Laravel:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none"># Membuat project baru menggunakan Composer
+composer create-project laravel/laravel nama-project
+
+# Masuk ke direktori project
+cd nama-project
+
+# Jalankan development server
+php artisan serve</code></pre></div><p>Jika berhasil, server akan berjalan di <code>http://127.0.0.1:8000</code></p>
+
+<div class="callout callout-note"><span class="callout-icon">📝</span><div class="callout-body"><p class="callout-title">Note ✨</p><div>Disini saya menggunakan laragon versi 6.0 sebagai local environtment server, php versi 8.2, composer versi 2.4.1, dan laravel versi 12.0.0</div></div></div><h2 id="struktur-folder-laravel">Struktur Folder Laravel</h2><div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">struktur_project_laravel</span></div><pre><code class="language-struktur_project_laravel">nama-project/
+ app/                   # Logika utama aplikasi (Model, Controller)
+ bootstrap/             # File inisialisasi &amp; cache framework
+ config/                # Kumpulan file konfigurasi
+ database/              # Database migrations, seeders, factories
+ public/                # Document root server (index.php, CSS, JS)
+ resources/             # Views (Blade templates) &amp; un-compiled assets
+ routes/                # Tempat mendaftarkan route web/API
+ storage/               # File cache, sesi, file unggahan, &amp; log
+ tests/                 # Folder otomasi testing aplikasi
+ vendor/                # Package &amp; library pihak ketiga (Composer)
+ .editorconfig          # Aturan format coding (indentasi, dsb)
+ .env                   # Info kredensial database &amp; environment
+ .env.example           # Contoh / template bawaan untuk file .env
+ .gitattributes         # Aturan spesifik path text untuk Git
+ .gitignore             # Daftar file/folder yang diabaikan Git
+ artisan                # Skrip CLI untuk menjalankan command Laravel
+ composer.json          # Daftar package / library PHP project
+ composer.lock          # Pengunci versi spesifik library PHP
+ package.json           # Daftar library Node.js (seperti NPM/Yarn)
+ phpunit.xml            # Pengaturan bawaan testing (PHPUnit)
+ README.md              # Ringkasan informasi tentang project 
+ vite.config.js         # Pengaturan bundler asset frontend Vite</code></pre></div><h2 id="membuat-view-dan-route-sederhana">Membuat View dan Route Sederhana</h2><p>Modifikasi file <code>routes/web.php</code> dan buatlah route sederhana, seperti berikut.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">web.php</span></div><pre><code class="language-web.php"># Membuat route sederhana
+&lt;?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/belajar', function () {
+    echo 'Halo, tulisan ini ditampilkan dari Routes';
+});</code></pre></div><p>Kemudian, akses web browser pada alamat <code>http://localhost:8000/belajar</code>, maka akan muncul tampilan seperti berikut.</p>
+
+<p>Selanjutnya, buatlah sebuah file view sederhana di folder <code>resources/views</code> dengan nama <code>belajar.blade.php</code>, seperti berikut.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">belajar.blade.php</span></div><pre><code class="language-belajar.blade.php">Halo, ini adalah tampilan dari views</code></pre></div><p>Modifikasi juga file <code>routes/web.php</code>, seperti berikut.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">web.php</span></div><pre><code class="language-web.php">Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/belajar', function () {
+    return view('belajar');
+});</code></pre></div><p>Kemudian, akses kembali web browser pada alamat <code>http://localhost:8000/belajar</code>, maka akan muncul tampilan seperti berikut.</p>
+
+<h3 id="mari-kita-coba-mengirim-data-ke-view">Mari kita coba mengirim data ke view</h3><p>Cara 1, Menggabungkan data dalam satu variabel array asosiatif, sehingga data yang dikirim ke view hanya 1 saja</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">web.php</span></div><pre><code class="language-web.php">Route::get('/belajar', function () {
+    $data['nama'] = "Alif";
+    $data['jk'] = "Laki-laki";
+    return view('belajar', $data);
+});</code></pre></div><p>Cara 2, Menggunakan fungsi compact()</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">web.php</span></div><pre><code class="language-web.php">Route::get('/belajar', function () {
+    $nama = "Alif";
+    $jk = "Laki-laki";
+    return view('belajar', compact('nama', 'jk'));
+});</code></pre></div><p>Kemudian, modifikasi file <code>resources/views/belajar.blade.php</code>, seperti berikut.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">belajar.blade.php</span></div><pre><code class="language-belajar.blade.php">Halo, ini adalah tampilan dari views
+&lt;br&gt;
+Halo {{ $nama }}
+&lt;br&gt;
+Jenis Kelamin: {{ $jk }}</code></pre></div><p>Akses kembali web browser pada alamat <code>http://localhost:8000/belajar</code>, maka akan muncul tampilan seperti berikut.</p>
+
+<p>Ubah tampilan pada file <code>resources/views/belajar.blade.php</code>, menjadi tabel seperti berikut.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">belajar.blade.php</span></div><pre><code class="language-belajar.blade.php">Halo, ini adalah tampilan dari views
+&lt;br&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+    &lt;td&gt;Nama&lt;/td&gt;
+    &lt;td&gt;{{ $nama }}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Jenis Kelamin&lt;/td&gt;
+    &lt;td&gt;{{ $jk }}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</code></pre></div><p>Kemudian, akses kembali web browser pada alamat <code>http://localhost:8000/belajar</code>, maka akan muncul tampilan seperti berikut.</p>
+
+<p><a href="#pengenalan">Pengenalan</a><a href="#part2">Part 2: Routing &amp; Views</a></p>
+</div>
+            <div><p>Refleksi</p><p>Renungkan materi ini:</p><ul><li>Saya dapat menginstal Laravel dan membuat project laravel pertama saya</li><li>Saya telah berhasil mempraktekan membuat route dan view</li><li>Saya dapat memahami sedikit demi sedikit root project, serta memahami fungsinya</li><li>Saya mampu untuk mengenal dan menggunakan perintah-perintah artisan CLI</li></ul></div><div class="references-box"><div class="references-header">📚 Referensi</div><ul class="references-list"><li><span class="ref-num">1</span><span class="ref-text"><a href="https://drive.google.com/file/d/1hhsXrZ0v-vEfDpVQNJr8uD3s719zSZH0/view" target="_blank">Modul Pembelajaran</a></span></li><li><span class="ref-num">2</span><span class="ref-text"><a href="https://youtu.be/CUEq8zLwu7c?si=Cfas11g3GF2Q8mHS" target="_blank">Video Pembelajaran</a></span></li></ul></div><div><span>Instalasi</span><span>Composer</span><span>Artisan</span></div><div class="part-footer-nav"><a href="#pengenalan" class="part-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>Pengenalan Laravel</a><a href="#part2" class="part-nav-btn">Laravel Database Migration<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a></div>
+          </section><section class="part-section" id="part2">
+            <div class="part-header">
+              <p class="part-label"><span class="part-label-line"></span> Laravel Database Migration</p>
+              <h1 class="part-title">Laravel Database Migration</h1>
+              <div class="part-meta">
+                <span>2026-04-09</span>
+                <span></span>
+                <span>🏷 Praktik</span>
+              </div>
+              <div class="part-intro">Laravel Database Migration adalah fitur powerful yang memungkinkan kita mengelola perubahan skema database secara terstruktur, layaknya sistem kontrol versi Git. Pada kesempatan kali ini kita akan membahas tentang membuat, memodifikasi, dan mengembalikan migrasi database.</div>
+            </div>
+            <div class="content-body"><div><div>🎯 Tujuan Pembelajaran</div><div><ul><li>Memahami definisi dan manfaat Laravel Database Migration.</li><li>Cara membuat tabel baru dengan menggunakan migrasi.</li><li>Menambahkan kolom baru ke tabel yang sudah ada.</li><li>Mekanisme rollback untuk membatalkan perubahan migrasi yang telah dilakukan.</li><li>Mengubah struktur tabel (seperti nama kolom atau tipe data) menggunakan migrasi baru.</li></ul></div></div><h2 id="apa-itu-laravel-database-migration-dan-mengapa-penting">Apa itu Laravel Database Migration dan Mengapa Penting?</h2><p>Database Migration adalah fitur Laravel untuk menjaga histori perubahan database (CREATE, ALTER, DROP) dan kemampuannya untuk mengaplikasikan migrasi baru ataupun mengembalikannya. Fitur ini memiliki mekanisme yang sama seperti Git di mana kita dapat menjalankan (execute) dan mengembalikan (revert) perubahan migrasi yang kita lakukan.</p>
+
+<h2 id="persiapan-awal-konfigurasi-lingkungan-laravel">Persiapan Awal: Konfigurasi Lingkungan Laravel</h2><p>Sebelum memulai dengan Migration, langkah pertama yang diperlukan adalah memastikan lingkungan Anda disiapkan dengan benar, termasuk memastikan versi PHP dan juga sistem konfigurasi environment. Pertama, periksa versi PHP yang terpasang:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none"># Cek versi PHP
+php -v
+PHP 8.2.29 (cli) (built: Jul  1 2025 20:21:12) (ZTS Visual C++ 2019 x64)
+Copyright (c) The PHP Group
+Zend Engine v4.2.29, Copyright (c) Zend Technologies</code></pre></div><div class="callout callout-warn"><span class="callout-icon">☁️</span><div class="callout-body"><p class="callout-title">Attention! 💥</p><div>
+Jika output yang muncul seperti ini, bisa langsung skip ke buat database.</div></div></div><h2 id="atur-konfigurasi-path-php">Atur Konfigurasi Path PHP</h2><p>Buka Windows Explorer, cari folder PHP di folder laragon, kemudian
+copy alamat path tersebut pada address bar
+Lokasi folder PHP disesuaikan dengan lokasi kita menginstall
+Laragon/PHP nya</p>
+
+<ul><li>Buka Windows Search, cari "System Environment Variable" lalu klik Edit the system environment variables.</li></ul>
+<ul><li>Pada window System Properties klik Environment Variables</li></ul>
+<ul><li>Pada window Environment Variable cek tab System Variables, dan cari Variable Path</li><li>Klik Edit pada Variable tersebut.</li></ul>
+<ul><li>Pada window environment variable, klik New lalu paste alamat PHP yang sebelumnya di copy.</li></ul>
+<ul><li>Klik OK, lalu klik OK lagi untuk menutup window environment variable.</li><li>Restart CMD atau terminal (Close lalu Run Ulang).</li></ul><h2 id="konfigurasi-environtment-pada-project-laravel">Konfigurasi environtment pada project Laravel</h2><p>Buat database terlebih dahulu dengan nama <code>db_laravel</code> pada <code>localhost/phpmyadmin/</code> atau klik menu <strong>Database</strong> pada Laragon. Login ke phpmyadmin dengan username <strong>root</strong> dan kosongkan kolom <strong>password</strong>, kemudian klik <strong>new</strong>.</p>
+
+<p>Buka file <code>.env</code> pada root folder project laravel, konfigurasi koneksi database di file tersebut (seperti DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, dan DB_PASSWORD). Setelah mengatur database, kita bisa lanjut membuat tabel baru.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">env</span></div><pre><code class="language-env">DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db_laravel
+DB_USERNAME=root
+DB_PASSWORD=</code></pre></div><h2 id="membuat-tabel-baru-dengan-migrasi-laravel">Membuat Tabel Baru dengan Migrasi Laravel</h2><p>Untuk membuat tabel baru seperti <code>t_siswa</code>, kita perlu membuat file migrasi baru menggunakan perintah console Artisan:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none">php artisan make:migration create_t_siswa</code></pre></div><p>File baru akan berformat <code>tanggal_create_t_siswa.php</code></p>
+
+<p>Perintah tersebut akan menghasilkan sebuah file di folder <code>database/migrations/</code> dengan struktur yang memuat dua fungsi utama. Perlu diingat:</p>
+<div class="callout callout-note"><span class="callout-icon">📝</span><div class="callout-body"><p class="callout-title">Note ✨</p><div> Maksud dari function up(): Fungsi yang dijalankan ketika database di migrate. Semua definisi skema diletakkan di sini dan maksud dari function down(): Fungsi yang dijalankan ketika database di rollback. Semua pemulihan atas pembuatan/modifikasi skema diletakkan di sini (misalnya perintah drop).</div></div></div><p>Saatnya mendefinisikan skema tabel: buat contohnya kolom <code>nis</code>, <code>nama_lengkap</code>, dan <code>jenis_kelamin</code> di file migrasi ini.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">database/migrations/tanggal_create_t_siswa.php</span></div><pre><code class="language-database/migrations/tanggal_create_t_siswa.php">public function up()
+{
+    Schema::create('t_siswa', function (Blueprint $table) {
+        $table-&gt;id();
+        $table-&gt;integer('nis')-&gt;unique();
+        $table-&gt;string('nama_lengkap', 100);
+        $table-&gt;enum('jenis_kelamin', ['L', 'P']);
+        $table-&gt;timestamps();
+    });
+}</code></pre></div><p>Akhiri instruksi ini dengan menjalankan perintah <code>php artisan migrate</code> untuk melakukan sinkronisasi dengan database di phpMyAdmin. Setelah berhasil, silahkan cek phpMyAdmin untuk memverifikasi pembuatan tabel.</p>
+<h2 id="menambahkan-kolom-baru-ke-tabel-yang-sudah-ada">Menambahkan Kolom Baru ke Tabel yang Sudah Ada</h2><p>Sekarang kita akan mencoba menambah column baru bernama <code>goldar</code>. Buat migration baru bernama <code>add_goldar_t_siswa</code> dengan ketik perintah:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none">php artisan make:migration add_goldar_t_siswa</code></pre></div>
+<p>Buka dan modifikasi file migrasi yang dibentuk, kita memakai <code>Schema::table()</code> untuk mengubah struktur yang sudah ada.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">database/migrations/tanggal_add_goldar_t_siswa.php</span></div><pre><code class="language-database/migrations/tanggal_add_goldar_t_siswa.php">public function up()
+{
+    Schema::table('t_siswa', function (Blueprint $table) {
+        $table-&gt;string('goldar', 3)-&gt;nullable()-&gt;after('jenis_kelamin');
+    });
+}
+
+public function down()
+{
+    Schema::table('t_siswa', function (Blueprint $table) {
+        $table-&gt;dropColumn('goldar');
+    });
+}</code></pre></div><p>Jalankan kembali <code>php artisan migrate</code> untuk menerapkan perubahan penambahan kolom tersebut pada database Anda.</p>
+<h2 id="memahami-dan-menggunakan-rollback-migrasi">Memahami dan Menggunakan Rollback Migrasi</h2><p>Rollback memiliki fungsi utama untuk membatalkan migrasi yang sudah kita lakukan sebelumnya. Skenario umum digunakan ketika kita ada kesalahan. Rollback akan menjalankan method <code>down()</code> untuk membatalkan file file yang sebelumnya kita <code>up()</code>. Jalankan perintah:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none">php artisan migrate:rollback</code></pre></div><p>Rollback menghasilkan output daftar migrasi yang dibatalkan sebelumnya. Perlu diketahui, fitur ini menghapus satu operasi migrasi mundur. Misalnya, kalau baru menambah kolom, yang di rollback adalah kolom tersebut.</p>
+<h2 id="mengubah-struktur-tabel-alter-table-dengan-migrasi-baru">Mengubah Struktur Tabel (ALTER TABLE) dengan Migrasi Baru</h2><p>Melakukan perubahan pada database dapat kita lakukan melalui migrasi baru dengan beberapa fungsi ALTER TABLE yang disediakan laravel. Misalnya jika kita ingin mengubah jenis nama kolom <code>jenis_kelamin</code> dirubah namanya menjadi <code>jk</code>. Buat migrasi bernama <code>change_jk_t_siswa</code> dengan perintah:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none">php artisan make:migration change_jk_t_siswa</code></pre></div>
+<p>Lalu, modifikasi isinya dengan perintah di method <code>up()</code> menggunakan <code>renameColumn()</code>:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">database/migrations/tanggal_change_jk_t_siswa.php</span></div><pre><code class="language-database/migrations/tanggal_change_jk_t_siswa.php">public function up()
+{
+    Schema::table('t_siswa', function (Blueprint $table) {
+        $table-&gt;renameColumn('jenis_kelamin', 'jk');
+    });
+}
+
+public function down()
+{
+    Schema::table('t_siswa', function (Blueprint $table) {
+        $table-&gt;renameColumn('jk', 'jenis_kelamin');
+    });
+}</code></pre></div><p><a href="#part1">Part 1</a>
+<a href="#part3">Part 3: Controller &amp; Facade DB</a></p>
+</div>
+            <div><p>Refleksi</p><p>Renungkan materi ini:</p><ul><li>Saya dapat mengetahui Database Migration merupakan fitur penting yang sangat memudahkan pengembangan dan pengelolaan skema aplikasi database.</li><li>Migration pada framework laravel sangat membantu manajemen dari histori setup skema sebuah database.</li><li>Saya dapat membuat tabel, mengubah tabel, dan menghapus tabel hanya dari perintah artisan pada terminal.</li></ul></div><div class="references-box"><div class="references-header">📚 Referensi</div><ul class="references-list"><li><span class="ref-num">1</span><span class="ref-text"><a href="https://drive.google.com/file/d/1hdwEdGizrO6aMcT0Ww1WtozNjuIFxLpS/view" target="_blank">Modul Pembelajaran</a></span></li><li><span class="ref-num">2</span><span class="ref-text"><a href="https://youtu.be/L7nrWsqc2U4?si=C7xYP1SgrRF9EgWa" target="_blank">Video Pembelajaran</a></span></li><li><span class="ref-num">3</span><span class="ref-text"><a href="https://laravel.com/docs" target="_blank">Laravel Documentation</a></span></li></ul></div><div class="part-footer-nav"><a href="#part1" class="part-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>Membuat Project Laravel</a><a href="#part3" class="part-nav-btn">Laravel: Controller dan Facade DB<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a></div>
+          </section><section class="part-section" id="part3">
+            <div class="part-header">
+              <p class="part-label"><span class="part-label-line"></span> Laravel: Controller dan Facade DB</p>
+              <h1 class="part-title">Laravel: Controller dan Facade DB</h1>
+              <div class="part-meta">
+                <span>2026-04-12</span>
+                <span></span>
+                <span>🏷 Praktik</span>
+              </div>
+              <div class="part-intro">Controller dan Facade DB di Laravel merupakan dua komponen krusial dalam pengembangan aplikasi. Hari ini, kita akan memahami peran Controller dalam arsitektur MVC, langkah-langkah pembuatannya, serta cara berinteraksi dengan database untuk menampilkan dan mengelola data secara efektif menggunakan Facade DB dan Blade Template.</div>
+            </div>
+            <div class="content-body"><div><div>🎯 Tujuan Pembelajaran</div><div><ul><li>Apa itu Controller? </li><li>Membuat Controller  </li><li>Interaksi Database menggunakan Facade DB  </li><li>Query Database menggunakan Facade DB</li></ul></div></div><h2 id="apa-itu-controller-perannya-dalam-arsitektur-mvc-laravel">Apa Itu Controller? Perannya dalam Arsitektur MVC Laravel</h2><p>Controller adalah komponen sistem yang memiliki tugas utama sebagai penghubung dan pengatur logika aplikasi dan jembatan alur data. Controller pada Konsep <strong>MVC</strong> (Model-View-Controller) framework <strong>Laravel</strong>, bertugas merespon request lalu menghubungkan Model (Database) dengan View (Tampilan).</p>
+<p>Pada Konsep MVC, Controller adalah yang bertugas untuk menghubungkan Model dengan View. Biasanya satu Controller dibuat untuk satu Modul atau entitas seperti <code>KelasController</code> khusus untuk menangani proses berentitas Tabel Kelas.</p>
+<h2 id="membuat-controller-dan-menghubungkannya-dengan-route">Membuat Controller dan Menghubungkannya dengan Route</h2><p>Kita dapat membuat Controller menggunakan command artisan bawaan Laravel. Sebagai contoh kita akan membuat controller <code>KelasController</code>.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none">php artisan make:controller KelasController</code></pre></div><p>Setelah controller berhasil dibuat, kita dapat menghubungkannya di file route <code>routes/web.php</code>. Ada bentuk umum yang direferensikan dalam dokumentasi Laravel untuk pemanggilan fungsi dari Controller class.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">KelasController</span></div><pre><code class="language-KelasController">use App\Http\Controllers\KelasController;
+
+// Bentuk Umum Route dengan Controller
+Route::get('/nama-route', [NamaController::class, 'Namafungsi']);
+
+// Contoh implementasi
+Route::get('/kelas', [KelasController::class, 'index']);</code></pre></div><p>Nama Controller usahakan <strong>PascalCase</strong> dan diakhiri dengan Controller (misal: <code>KelasController</code>). Nama fungsi / method pada Controller usahakan camelCase (misal: <code>index()</code>, <code>tambahSiswa()</code>).</p>
+<h2 id="interaksi-database-laravel-menggunakan-facade-db">Interaksi Database Laravel Menggunakan Facade DB</h2><p>Untuk menampikan data dari database, kita perlu terhubung dengan Database terlebih dahulu. Kali ini kita akan berkenalan dengan <strong>Facade Database</strong> (<code>DB</code>). Tapi sebelumnya mari kita coba buat query dummy terlebih dahulu di phpMyAdmin tabel <code>t_kelas</code>.</p>
+
+<p>Modifikasi <code>KelasController</code> yang dibentuk sebelumnya untuk mengambil data menggunakan Facade DB.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">KelasController</span></div><pre><code class="language-KelasController">namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class KelasController extends Controller
+{
+    function index() {
+        $kelas = DB::table('t_kelas')-&gt;get();
+        return view('kelas', compact('kelas'));
+    }
+}</code></pre></div><h2 id="blade-template">Blade Template</h2><p>Sesudah meneruskan variable <code>$kelas</code> ke view <code>kelas.index</code>, buat file view tersebut menjadi <code>resources/views/kelas/index.blade.php</code> dan kita dapat menampilkan semua data dengan direktif looping Blade.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">kelas.blade.php</span></div><pre><code class="language-kelas.blade.php">&lt;table border='1'&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;ID Kelas&lt;/th&gt;
+            &lt;th&gt;Nama&lt;/th&gt;
+            &lt;th&gt;Kelas&lt;/th&gt;
+            &lt;th&gt;Jurusan&lt;/th&gt;
+            &lt;th&gt;Lokasi Ruangan&lt;/th&gt;
+            &lt;th&gt;Wali Kelas&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        @foreach ($kelas as $row)
+        &lt;tr&gt;
+            &lt;td&gt;{{ $row-&gt;id }}&lt;/td&gt;
+            &lt;td&gt;{{ $row-&gt;nama }}&lt;/td&gt;
+            &lt;td&gt;{{ $row-&gt;kelas }}&lt;/td&gt;
+            &lt;td&gt;{{ $row-&gt;jurusan }}&lt;/td&gt;
+            &lt;td&gt;{{ $row-&gt;lokasi_ruangan }}&lt;/td&gt;
+            &lt;td&gt;{{ $row-&gt;nama_wali_kelas }}&lt;/td&gt;
+        &lt;/tr&gt;
+        @endforeach
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre></div><p><code>@foreach</code> Digunakan untuk melakukan looping data yang terdapat pada array atau object hasil passingan Controller. Bentuk umum nya sama seperti php: <code>foreach($object as $item)</code> dan ditutup menggunakan struktur <code>@endforeach</code> untuk menutup blok looping tersebut.
+</p>
+<h2 id="query-data-menggunakan-facade-db">Query Data menggunakan Facade DB</h2><p>Facade DB menyediakan banyak fitur dan syntax dasar SQL. Kita bisa melakukan filter dan pengurutan (ORDER BY, WHERE) dengan syntax langsung.</p>
+<p>Contoh, <strong>ORDER BY</strong> Menampilkan data diurutkan berdasarkan parameter. Misalnya menampilkan kelas dan jurusan berdasarkan urutan nama karakter alfabet:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">KelasController</span></div><pre><code class="language-KelasController">namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class KelasController extends Controller
+{
+    function index() {
+        $kelas = DB::table('t_kelas')
+            -&gt;orderBy('kelas', 'asc')
+            -&gt;orderBy('jurusan', 'asc')
+            -&gt;get();
+        return view('kelas', compact('kelas'));
+    }
+}</code></pre></div>
+<p>Sementara, <strong>WHERE</strong> Menampilkan list filter spesifik. Misalnya hanya yang jurusan nya Rekayasa Perangkat Lunak:   </p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">KelasController</span></div><pre><code class="language-KelasController">namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class KelasController extends Controller
+{
+   function index() {
+       $kelas = DB::table('t_kelas')
+           -&gt;where('jurusan', 'Rekayasa Perangkat Lunak')
+           -&gt;get();
+       return view('kelas', compact('kelas'));
+   }
+}</code></pre></div>
+</div>
+            <div><p>Refleksi</p><p>Renungkan materi ini:</p><ul><li>Kita dapat mengetahui bahwa Controller berperan penting dalam konsep MVC Laravel</li><li>Dengan menggunakan Blade Template membuat variabel pada controller dapat diteruskan ke views</li><li>Facade DB membuat sytax SQL dapat dilakukan pada controller </li></ul></div><div class="references-box"><div class="references-header">📚 Referensi</div><ul class="references-list"><li><span class="ref-num">1</span><span class="ref-text"><a href="https://drive.google.com/file/d/1hqn-QwZgHwk_BGh-qz0F2ASdOHCYStX2/view " target="_blank">Modul Pembelajaran</a></span></li><li><span class="ref-num">2</span><span class="ref-text"><a href="https://youtu.be/5kYQkC4bHSs?si=CNwRz95NPzyuswHa" target="_blank">Video Pembelajaran</a></span></li><li><span class="ref-num">3</span><span class="ref-text"><a href="https://laravel.com/docs/13.x" target="_blank">Laravel Documentation</a></span></li></ul></div><div><span>Laravel</span><span>MVC</span></div><div class="part-footer-nav"><a href="#part2" class="part-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>Laravel Database Migration</a><a href="#part4" class="part-nav-btn">Create Data with Facade DB<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a></div>
+          </section><section class="part-section" id="part4">
+            <div class="part-header">
+              <p class="part-label"><span class="part-label-line"></span> Create Data with Facade DB</p>
+              <h1 class="part-title">Create Data with Facade DB</h1>
+              <div class="part-meta">
+                <span>2026-04-16</span>
+                <span></span>
+                <span>🏷 Praktik</span>
+              </div>
+              <div class="part-intro">Hari ini kita akan belajar membuat data baru dalam aplikasi Laravel menggunakan Facade DB, implementasi pesan sukses/gagal, validasi input, dan menampilkan kembali nilai input lama. Hal ini bertujuan untuk meningkatkan pengalaman pengguna dalam mengelola data.</div>
+            </div>
+            <div class="content-body"><div><div>🎯 Tujuan Pembelajaran</div><div><ul><li>Create Data with Facade DB</li><li>Sucess/Error Message Feedback</li><li>Input Validation</li><li>Displaying User Old Value</li></ul></div></div><h2 id="create-data-with-facade-db">Create Data with Facade DB</h2><p>Untuk membuat fitur penambahan data, langkah pertama adalah menyediakan tombol navigasi dan form. Tambahkan link di view HTML untuk berpindah halaman dan buatlah route baru untuk menampilkan halamannya.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">belajar.blade.php</span></div><pre><code class="language-belajar.blade.php">&lt;!-- Tambahkan link menu menuju form add --&gt;
+&lt;a href="{{ url('siswa/create') }}"&gt;Tambah Data&lt;/a&gt;</code></pre></div><p>Penggunaan <code>url('nama-route')</code> pada Blade digunakan untuk menciptakan URL lengkap (absolut) menuju endpoint tertentu. Sekarang alokasikan di file <code>routes/web.php</code> rute URL tersebut ke method di Controller.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none">Route::get('/siswa/create', [SiswaController::class, 'create']);</code></pre></div><p>Dan pada controller <code>SiswaController</code>, kembalikan rute tersebut ke sebuah file view baru bernama <code>form.blade.php</code> di sub-folder <code>siswa/</code>.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none">public function create()
+{
+    // Menampilkan view dengan nama form pada folder views/siswa/
+    return view('siswa.form');
+}</code></pre></div><h3 id="mengamankan-form-dengan-csrf-protection">Mengamankan Form dengan CSRF Protection</h3><p>Buat file <code>resources/views/siswa/form.blade.php</code>.
+Pada saat menulis formulir HTML yang metode request-nya mengubah data (menggunakan HTTP metode selain GET seperti POST, PUT, PATCH, DELETE), tag <code>@csrf</code> secara krusial harus dicantumkan di dalamnya.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">form.blade.php</span></div><pre><code class="language-form.blade.php">&lt;h1&gt;Form Siswa&lt;/h1&gt;
+&lt;form action="{{ url('siswa') }}" method="POST"&gt;
+    @csrf
+
+    NIS : &lt;input type="text" name="nis"&gt;&lt;br&gt;
+    Nama Lengkap : &lt;input type="text" name="nama_lengkap"&gt;&lt;br&gt;
+    Jenis Kelamin : &lt;br&gt;
+    &lt;label for="L"&gt;&lt;input type="radio" name="jk" id="L" value="L"&gt;Laki-laki&lt;/label&gt;&lt;br&gt;
+    &lt;label for="P"&gt;&lt;input type="radio" name="jk" id="P" value="P"&gt;Perempuan&lt;/label&gt;&lt;br&gt;
+    Golongan Darah :
+    &lt;select name="golongan_darah"&gt;
+        &lt;option value=""&gt;Pilih Golongan Darah&lt;/option&gt;
+        &lt;option value="A"&gt;A&lt;/option&gt;
+        &lt;option value="B"&gt;B&lt;/option&gt;
+        &lt;option value="AB"&gt;AB&lt;/option&gt;
+        &lt;option value="O"&gt;O&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input type="submit" value="Simpan"&gt;
+&lt;/form&gt;</code></pre></div><p>Setiap request yang memiliki method selain GET, syntax <code>@csrf</code> wajib digunakan didalam form sebagai pelindung keamanan dari serangan CSRF dengan membuat sebuah hidden input yang memegang token (_token). CSRF (Cross-Site Request Forgery) merupakan bentuk serangan eksploitasi web form yang dilakukan tanpa wewenang korban yang tidak dikehendaki.</p>
+<h3 id="menyimpan-data-baru-ke-database-dengan-facade-db">Menyimpan Data Baru ke Database dengan Facade DB</h3><p>Tahap selanjutnya adalah menangkap inputan tersebut dan memasukkannya ke database. Tambahkan endpoint POST pada route.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">web.php</span></div><pre><code class="language-web.php">// Mengarahkan route request POST ke function store
+Route::get('/siswa', [SiswaController::class, 'index']);
+Route::get('/siswa/create', [SiswaController::class, 'create']);
+Route::post('/siswa', [SiswaController::class, 'store']); // tambahkan ini</code></pre></div><p>Kemudian definisikan function <code>store()</code> di dalam Controller untuk memproses request input dan database query-nya menggunakan <code>DB::table()-&gt;insert()</code>.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">SiswaController.php</span></div><pre><code class="language-SiswaController.php">function store(Request $request)
+{
+    $input = $request-&gt;all(); // Menangkap seluruh request input sebagai array dari view 
+    unset($input['_token']); // Menghapus key _token pada request array karena kolom ini tidak dicatat database
+    $status = DB::table('t_siswa')-&gt;insert($input); // Melakukan insert data ke tabel t_siswa dimana datanya berasal dari array $input
+    // Jika insert berhasil diarahkan kembali ke alamat tabel list.
+    // Bawa message via parameter flash session with()
+    if ($status) {
+        return redirect('/siswa')-&gt;with('success', 'Data berhasil ditambahkan');
+    } else {
+        return redirect('/siswa/create')-&gt;with('error', 'Data gagal ditambahkan');
+    }
+}</code></pre></div><h2 id="sucess-error-message-feedback">Sucess &amp; Error Message Feedback</h2><p>Nah untuk menampilkan nilainya di sisi pengguna Blade, tangkap flash message dari session menggunakan syntak direktif blade:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">belajar.blade.php</span></div><pre><code class="language-belajar.blade.php">&lt;!-- Laravel 10.x ke atas merekomendasikan menggunakan direktif @session --&gt;
+@session('success')
+    &lt;div class="alert alert-success"&gt;{{ session('succes') }}&lt;/div&gt;
+@endsession
+
+@session('error')
+    &lt;div class="alert alert-error"&gt;{{ session('error')}}&lt;/div&gt;
+@endsession</code></pre></div><h2 id="input-validation">Input Validation</h2><p>Jangan mempercayai input form sembarangan karena bisa menimbulkan invalid state di level database maupun kerawanan. Laravel menyediakan built-in Validation terpadu lewat function instans request yaitu <code>validate()</code>. Edit file <code>SiswaController.php</code></p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">SiswaController.php</span></div><pre><code class="language-SiswaController.php">public function store(Request $request)
+{
+    // Bentuk aturan Rule: 'key' =&gt; 'rule1:value|rule2'
+    $request-&gt;validate([
+        'nis' =&gt; 'required|numeric|max:10',
+        'nama_lengkap' =&gt; 'required|string|max:100',
+        'jenis_kelamin' =&gt; 'required|in:L,P',
+        'golongan_darah' =&gt; 'required'
+    ]);
+}</code></pre></div><p>Tampilkan pesan validasi errornya di layar html jika pengguna menerobos aturan tersebut dengan memberdayagunakan object array <code>$errors</code> yang telah dicancel. Tambahkan kode berikut pada file <code>form.blade.php</code></p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">siswa/form.blade.php</span></div><pre><code class="language-siswa/form.blade.php">@session('error')
+    &lt;div class="alert alert-error"&gt;
+        {{ session('error') }}
+    &lt;/div&gt;
+@endsession
+
+@if ($errors-&gt;any())
+    &lt;div class="alert alert-danger"&gt;
+        &lt;strong&gt;Ada masalah dengan input&lt;/strong&gt;
+        &lt;ul&gt;
+            @foreach ($errors-&gt;all() as $error)
+                &lt;li&gt;{{ $error }}&lt;/li&gt;
+            @endforeach
+        &lt;/ul&gt;
+    &lt;/div&gt;
+@endif</code></pre></div><h2 id="displaying-user-old-value">Displaying User Old Value</h2><p>Ketika validasi server gagal (Request Invalid), semua inputan client tentu akan direset dan hilang. Hal yang hal ini dapat memakan waktu. Untungnya kita punya helper <code>old()</code> yang dapat ditautkan di properti form yang membuat kolom dapat merekonstruksi entrian data input yang salah.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">siswa/form.blade.php</span></div><pre><code class="language-siswa/form.blade.php">&lt;!-- Bentuk umum menampilkan old value --&gt;
+&lt;label&gt;NIS&lt;/label&gt;
+&lt;input type="text" name="nis" value="{{ old('nis') }}"&gt;</code></pre></div></div>
+            <div class="references-box"><div class="references-header">📚 Referensi</div><ul class="references-list"><li><span class="ref-num">1</span><span class="ref-text"><a href="https://drive.google.com/file/d/1hl63guSudnYbJIllm6djyW1vI_tW3A9V/view" target="_blank">Modul Pembelajaran</a></span></li></ul></div><div class="part-footer-nav"><a href="#part3" class="part-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>Laravel: Controller dan Facade DB</a><a href="#part5" class="part-nav-btn">Edit &amp; Delete Data with Facade DB<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a></div>
+          </section><section class="part-section" id="part5">
+            <div class="part-header">
+              <p class="part-label"><span class="part-label-line"></span> Edit &amp; Delete Data with Facade DB</p>
+              <h1 class="part-title">Edit &amp; Delete Data with Facade DB</h1>
+              <div class="part-meta">
+                <span>2026-04-23</span>
+                <span></span>
+                <span>🏷 Praktik</span>
+              </div>
+              <div class="part-intro">Operasi CRUD (Create, Read, Update, Delete) merupakan pilar bagi sebagian besar aplikasi web back-end. Tanpa Update, data yang salah ketik atau data yang usang tidak bisa diperbaiki. Tanpa Delete, data sampah rentan menumpuk. Kita akan belajar memodifikasi tampilan, mendefinisikan rute, dan menulis logika controller yang efektif.</div>
+            </div>
+            <div class="content-body"><div><div>🎯 Tujuan Pembelajaran</div><div><ul><li>Edit Data with Facade DB</li><li>Delete Data with Facde DB</li></ul></div></div><h2 id="edit-data-with-facade-db">Edit Data with Facade DB</h2><p>Untuk mengedit sebaris record, kita harus masuk ke interface daftar List terlebih dulu lalu menambahkan object tombol aksi Edit.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">web.php</span></div><pre><code class="language-web.php">&lt;a href="{{ url('siswa/create') }}"&gt;Tambah Data&lt;/a&gt;
+&lt;hr&gt;
+
+@session('success')
+    &lt;div class="alert alert-success"&gt;
+        {{ session('success') }}
+    &lt;/div&gt;
+@endsession
+
+&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;NIS&lt;/th&gt;
+        &lt;th&gt;Nama Lengkap&lt;/th&gt;
+        &lt;th&gt;L/P&lt;/th&gt;
+        &lt;th&gt;Golongan Darah&lt;/th&gt;
+        &lt;th&gt;Aksi&lt;/th&gt; //Tambahkan Header Aksi
+    &lt;/tr&gt;
+    @foreach ($siswa as $row)
+    &lt;tr&gt;
+        &lt;td&gt;{{ $row-&gt;nis }}&lt;/td&gt;
+        &lt;td&gt;{{ $row-&gt;nama_lengkap }}&lt;/td&gt;
+        &lt;td&gt;{{ $row-&gt;jk }}&lt;/td&gt;
+        &lt;td&gt;{{ $row-&gt;golongan_darah }}&lt;/td&gt;
+        &lt;td&gt;&lt;a href="{{ url('siswa/edit/'. $row-&gt;id) }}"&gt;Edit&lt;/a&gt;&lt;/td&gt; //Di dalam loop foreach data siswa</code></pre></div><p>URL disisipi ID primary key baris data. Contohnya format URL <code>siswa/4/edit</code> untuk menspesifikkan kita ingin mengedit record dengan ID angka 4.</p>
+<h3 id="mendefinisikan-route-untuk-edit-data">Mendefinisikan Route untuk Edit Data</h3><p>Edit <code>web.php</code>. Dibanding membuat satu route Controller, form edit butuh 2 route. Satu route GET untuk menampilkan UI Form Edit, dan method spesifik rute PATCH (HTTP Protocol) untuk mengirimkan update modifikasinya via submit HTML secara aman terpisah.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">web.php</span></div><pre><code class="language-web.php">Route::get('/siswa', [SiswaController::class, 'index']);
+Route::get('/siswa/create', [SiswaController::class, 'create']);
+Route::post('/siswa', [SiswaController::class, 'store']);
+Route::get('/siswa/edit/{id}', [SiswaController::class, 'edit']); //tambahkan ini
+Route::patch('/siswa/{id}', [SiswaController::class, 'update']); //tambahkan ini</code></pre></div><p>Variabel ID dilempar melalui placeholder URL brace kurung kurawal yakni <code>{id}</code>. Nantinya ini akan ditangkap oleh Controller otomatis.</p>
+<h3 id="mengimplementasikan-fungsi-edit-di-controller">Mengimplementasikan Fungsi `edit()` di Controller</h3><p>Sekarang buat fungsi <code>edit($id)</code> di controller untuk mencari database target berdasarkan ID tersebut menggunakan DB Facade <code>find()</code> lalu passing-kan hasilnya ke Blade View.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none">public function edit($id)
+{
+    // Mencari data pada t_siswa yang memiliki primaryKey bernilai param URL $id
+    $siswa = DB::table('t_siswa')-&gt;find($id);
+    
+    // Passing object database sebagai array data untuk ditampilkan ke file balikan
+    return view('siswa.form', compact('siswa'));
+}</code></pre></div><h3 id="form-edit-dengan-pra-isi-data-menggunakan-old">Form Edit dengan Pra-Isi Data Menggunakan `old()`</h3><p>Coba gunakan kembali file template form yang digunakan pada fitur Create sebelumnya (contohnya <code>siswa/form.blade.php</code>). Karena kali ini proses yang dijalankan adalah meng-edit, form action attribute-nya harus diarahkan berdasarkan ID. Metode bawaannya pun harus di override ke format HTTP PATCH menggunakan tag directive <code>@method('PATCH')</code>, dan panggil value default dari data array object tabel <code>$siswa</code> memanfaatkan parameter kedua argumen helper <code>old()</code>. Sesuaikan <code>siswa/form.blade.php</code></p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none">&lt;!-- Modifikasi logic URL dan HTTP method jika ini form edit vs create --&gt;
+&lt;form action="{{ url('siswa', @$siswa-&gt;id) }}" method="post"&gt;
+    @csrf
+    @if(isset($siswa))
+        @method('PATCH')
+    @endif
+
+   // Bentuk umum old('value_request', 'default_database')
+    &lt;label&gt;Nama Lengkap&lt;/label&gt;
+    &lt;input type="text" name="nama_lengkap" 
+        value="{{ old('nama_lengkap', @$siswa-&gt;nama_lengkap) }}"&gt;
+        
+   // Implementasikan pada semua baris input
+&lt;/form&gt;</code></pre></div><p>Pada blok kode di atas, fungsi <code>old('value', 'default')</code> ditambahkan parameter default untuk mengatur value awal input dengan mengambil referensi dari properti variabel array <code>$siswa-&gt;nama\_lengkap</code>. Jika form ter-submit dan menabrak validasi error, kolom form tersebut akan override menampilkan sisa log session yang keliru ketimbang argumen default dari tabelnya yang asli.</p>
+<h3 id="mengimplementasikan-fungsi-update-untuk-menyimpan-perubahan">Mengimplementasikan Fungsi `update()` untuk Menyimpan Perubahan</h3><p>Sekarang tangkap patch form rekues tersebut dan olah payloadnya pada Controller melalui fungsi abstrak <code>update</code>.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none">public function update(Request $request, $id)
+{
+    // $request-&gt;validate([
+    'nis' =&gt; 'required|numeric',
+    'nama_lengkap' =&gt; 'required|string',
+    'jk' =&gt; 'required',
+    'golongan_darah' =&gt; 'required',
+]);
+
+    $input = $request-&gt;all();
+    unset($input['_token']);
+    unset($input['_method']);
+
+    // Menjalankan SQL Update DB data t_siswa disaring where(id) parameter request url
+    $status = DB::table('t_siswa')-&gt;where('id', $id)-&gt;update($input);
+
+    if ($status) {
+        return redirect('/siswa')-&gt;with('success', 'Data berhasil diubah');
+    }
+    return redirect('/siswa')-&gt;with('error', 'Data gagal diubah');
+}</code></pre></div><h2 id="delete-data-with-facade-db">Delete Data with Facade DB</h2><p>Fitur Delete sebaiknya menghindari interaksi click via tag URL (GET Link Anchor ``). HTML form request harus diamankan lewat aksi method DELETE supaya tidak mudah tereksploitasi peretasan. Sehingga kita meredam request DELETE berbalut dalam element <code>&lt;form&gt;</code> di sisi <code>belajar.blade.php</code> List siswa.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">belajar.blade.php</span></div><pre><code class="language-belajar.blade.php">&lt;td&gt;
+   &lt;a href="{{ url('/guru/edit/' . $row-&gt;id) }}" class="btn btn-edit"&gt;Edit&lt;/a&gt;
+   // tambahkan button delete masih pada kolom Aksi
+   &lt;form action="{{ url('siswa', $row-&gt;id) }}" method="post" class="inline-form"&gt;
+        @method('DELETE')
+        @csrf
+        &lt;button type="submit" class="btn btn-delete" onclick="return confirm('Yakin mau dihapus?')"&gt;Hapus&lt;/button&gt;
+&lt;/form&gt;</code></pre></div><h3 id="mendefinisikan-route-untuk-proses-hapus-data">Mendefinisikan Route untuk Proses Hapus Data</h3><p>Atur sebuah route web berprotokol DELETE yang menuju argumen object <code>destroy()</code> pada Controller route.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">web.php</span></div><pre><code class="language-web.php">// Mengarahkan route /siswa/{id} method Request HTTP DELETE ke function destroy
+Route::delete('/siswa/{id}', [SiswaController::class, 'destroy']);</code></pre></div><h3 id="mengimplementasikan-fungsi-destroy-di-controller">Mengimplementasikan Fungsi `destroy()` di Controller</h3><p>Terakhir, pada <code>SiswaController</code> panggil metode sintaks <code>DB Facade</code> query bawaan <code>delete()</code> pada baris object tersebut berdasarkan argumen <code>$id</code> nya untuk mengeksekusi penghapusan instance presisi object pada SQL-nya.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">SiswaController.php</span></div><pre><code class="language-SiswaController.php">public function destroy($id)
+{
+    // Menghapus data pada baris t_siswa yang memiliki id parameter $id
+    $status = DB::table('t_siswa')-&gt;where('id', $id)-&gt;delete();
+
+    if ($status) {
+        return redirect('/siswa')-&gt;with('success', 'Data berhasil dihapus!');
+    }
+    return redirect('/siswa')-&gt;with('error', 'Data tidak ditemukan!');
+}</code></pre></div></div>
+            <div class="references-box"><div class="references-header">📚 Referensi</div><ul class="references-list"><li><span class="ref-num">1</span><span class="ref-text"><a href="https://drive.google.com/file/d/1hjCHZog3DWbWU8x2TI5_nJETUhQ5OQtY/view" target="_blank">Modul Pembelajaran</a></span></li></ul></div><div class="part-footer-nav"><a href="#part4" class="part-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>Create Data with Facade DB</a><a href="#part6" class="part-nav-btn">Laravel: Eloquent &amp; ORM<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a></div>
+          </section><section class="part-section" id="part6">
+            <div class="part-header">
+              <p class="part-label"><span class="part-label-line"></span> Laravel: Eloquent &amp; ORM</p>
+              <h1 class="part-title">Laravel: Eloquent &amp; ORM</h1>
+              <div class="part-meta">
+                <span>2026-04-30</span>
+                <span></span>
+                <span>🏷 Praktik</span>
+              </div>
+              <div class="part-intro">Hari ini kita berkenalan dengan Eloquent &amp; ORM di laravel. Kita akan belajar cara mengimplementasikan operasi CRUD menggunakan standar industri Eloquent ORM dalam kerangka kerja Laravel. Serta  mempelajari cara membuat model, mengkonfigurasi properti kunci, memodifikasi controller untuk mengelola data dengan lebih bersih.</div>
+            </div>
+            <div class="content-body"><div><div>🎯 Tujuan Pembelajaran</div><div><ul><li>Memahami variabel `$table` dan `$fillable` untuk mass assignment.</li><li>Menerapkan operasi CREATE, READ, UPDATE, DELETE menggunakan Eloquent.</li><li>Perbandingan antara Eloquent ORM dan DB Facades.</li></ul></div></div><h2 id="eloquent-orm-fondasi-interaksi-database-di-laravel">Eloquent ORM: Fondasi Interaksi Database di Laravel</h2><p>Object-Relational Mapping (ORM) adalah teknik pemrograman untuk mengonversi data ke objek model yang dipahami oleh bahasa pemrograman. <strong>Eloquent</strong> adalah nama ORM andalan di ekosistem Laravel. ORM ini membuat kita seakan berinteraksi dengan tabel database seperti objek object-oriented murni, memberikan abstraksi query builder yang lebih intuitif dibanding <code>DB::table()</code> yang panjang dan <em>query SQL mentah</em>.</p>
+<h2 id="eloquent-membuat-model-dan-konfigurasi-dasar">Eloquent: Membuat Model dan Konfigurasi Dasar</h2><p>Pijakan pertama untuk setiap entitas tabel di Eloquent adalah Class Model. Gunakan artisan untuk meng-generate class model bernama <code>Siswa</code> (biasanya singular dari nama entitas).</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">terminal</span></div><pre><code class="language-none"># Pastikan masuk ke direktori folder project. Buat Model:
+php artisan make:model Siswa</code></pre></div><p>Ini membuat file model baru di <code>app/Models/Siswa.php</code>. Selaraskan konfigurasi nama tabel dan data field array di struktur property class nya:</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">Models/Siswa.php</span></div><pre><code class="language-Models/Siswa.php">&lt;?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Siswa extends Model
+{
+    // Mendefinisikan secara manual nama tabel yang direferensikan
+    protected $table = 't_siswa';
+
+    // Field yang boleh disisipkan via fungsi create mass-assignment
+    protected $fillable = ['nis', 'nama_lengkap', 'jk', 'alamat'];
+}</code></pre></div><p><strong>$table</strong> Variabel untuk menentukan nama record tabel pada database untuk model ini. Secara aslinya jika properti ini dikosongkan, Laravel Eloquent akan mencari tabel ter-plurarisasi dari nama model berakhiran s (Siswa -&gt; siswas).  </p>
+<p><strong>$fillable</strong> Variabel array yang menampung field tabel mana saja yang akan di-isikan via <a href="https://laravel.com/docs/eloquent#mass-assignment">Mass Assignment</a>. Ini bertindak sebagai tameng filter dari input pengguna yang tak dihendaki.</p>
+<h2 id="memodifikasi-fungsi-index-di-controller">Memodifikasi Fungsi Index di Controller</h2><p>Saatnya mengubah dan merefactor <code>SiswaController</code> kita agar menggunakan gaya basis Eloquent Model yang sangat simpel dibanding gaya facade Query DB biasa!</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">SiswaController.php</span></div><pre><code class="language-SiswaController.php">// Import namespace Model Siswa di atas class
+use App\Models\Siswa;
+
+public function index()
+{
+    // Menggunakan Eloquent mengekstrak seluruh isian data tabel t_siswa
+    $data['siswa_list'] = \App\Models\Siswa::orderBy('jk')-&gt;get();
+
+    // Catatan: Seluruh method yang dipanggil setelah inisialisasi Eloquent 
+    // sama dengan penggunaan sintaks DB Facades chaining seperti -&gt;orderBy('nama')-&gt;get();
+    
+    return view('siswa.index', $data);
+}</code></pre></div><h2 id="menyimpan-data-baru-create-implementasi-fungsi-store">Menyimpan Data Baru (Create): Implementasi Fungsi Store</h2><p>Perbedaan tampak dari Eloquent pada tahap insert data yang bisa menyederhanakan deklarasi ke dalam satu property sintaks metode <code>create()</code> ketimbang DB Facade yang panjang.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">SiswaController.php</span></div><pre><code class="language-SiswaController.php">public function store(Request $request)
+{
+    $request-&gt;validate([/* validation rule Anda */]);
+
+    $input = $request-&gt;all();
+
+    // ORM Eloquent for Inserting Data mass-assignment array
+    $status = Siswa::create($input);
+
+    if ($status) {
+        return redirect('/siswa')-&gt;with('success', 'Data berhasil ditambahkan (Eloquent)!');
+    }
+}</code></pre></div><h2 id="memperbarui-data-yang-ada-update-fungsi-update">Memperbarui Data yang Ada (Update): Fungsi Update</h2><p>Untuk proses refactoring Update record, instansiasikan model menggunakan bantuan fungsi <code>find()</code> sebelum disambung dengan query aksi pengeditan <code>update()</code>.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">SiswaController.php</span></div><pre><code class="language-SiswaController.php">public function update(Request $request, $id)
+{
+    $input = $request-&gt;all();
+    unset($input['_token']);
+    unset($input['_method']);
+
+    // ORM Eloquent for Updating Data by ID
+    $siswa = Siswa::find($id);
+    $status = $siswa-&gt;update($input);
+
+    if ($status) {
+        return redirect('/siswa')-&gt;with('success', 'Data berhasil diedit (Eloquent)!');
+    }
+}</code></pre></div><h2 id="mencari-data-spesifik-dengan-method-find">Mencari Data Spesifik dengan Method `find()`</h2><p><code>Siswa::find($id)</code><br>Method query pembantu abstrak <code>find()</code> ini berfungsi secara magis di layer Eloquent Model. Tujuannya adalah membatasi perburuan data instance cuma lewat primary key-nya (yang umumnya 'id'). Jika Anda men-setup class model dengan ID yang bertipe non standard, overridelah value <code>public $primaryKey = 'id_kustom';</code> di atasnya.  </p>
+<p>Jika diterjemahkan dalam bahasa SQL mentah, <code>find(4)</code> meracik query ringkas seperti: <code>SELECT * FROM t_siswa WHERE id = '4' LIMIT 1;</code></p>
+<h2 id="menghapus-data-delete-implementasi-fungsi-destroy">Menghapus Data (Delete): Implementasi Fungsi Destroy</h2><p>Aksi Delete menjadi sangat elegan menggunakan fitur bawaan framework Eloquent instance object.</p>
+<div class="code-block"><div class="code-titlebar"><div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="code-filename">SiswaController.php</span></div><pre><code class="language-SiswaController.php">public function destroy($id)
+{
+    // Find ORM object by id, then call delete method on it
+    $siswa = Siswa::find($id);
+    $status = $siswa-&gt;delete();
+
+    if ($status) {
+        return redirect('/siswa')-&gt;with('success', 'Berhasil dihapus via Eloquent!');
+    }
+}</code></pre></div></div>
+            <div class="references-box"><div class="references-header">📚 Referensi</div><ul class="references-list"><li><span class="ref-num">1</span><span class="ref-text"><a href="https://drive.google.com/file/d/1Id9S8xJAz3GfW9-NuOLkPcQYQXA6hbqD/view" target="_blank">Modul Pembelajaran</a></span></li></ul></div><div class="part-footer-nav"><a href="#part5" class="part-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>Edit &amp; Delete Data with Facade DB</a>
+              <a href="../../home/index.html" class="part-nav-btn">Kembali ke Beranda</a></div>
+          </section></main>
+      <div class="footer-bottom">
+        <span>© 2026 Muhammad Aziz Zakaria · CRUD PHP Native</span>
+      </div>
+
+    </div><!-- end main-content-wrapper -->
+  </div><!-- end app-container -->
+
+  <!-- end layout -->
+
+  <!-- PrismJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup-templating.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+
+  <!-- Our Script -->
+  <script src="script.js"></script>
+
+
+
+</body></html>

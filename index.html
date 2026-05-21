@@ -1,0 +1,1248 @@
+<!DOCTYPE html><html lang="id"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lippbyte — Dokumentasi Belajar Praktik: Aplikasi CRUD PHP Native">
+  <title>Blog CRUD PHP Native</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- PrismJS Theme -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- FOUC Prevention -->
+  
+</head>
+<body>
+  <!-- Reading Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-fill" id="topFill"></div>
+  </div>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button class="hamburger-btn" id="sidebarToggle" aria-label="Toggle Sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <a href="index.html" class="nav-logo">
+          Blog Dokumentasi
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">PHP Native</a>
+        <a href="laravel.html" class="nav-link">Laravel</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Sidebar Backdrop for Mobile -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- App Container (Sidebar + Content) -->
+  <div class="app-container">
+    <!-- Left Sidebar -->
+    <aside class="left-sidebar" id="leftSidebar">
+      <nav class="sidebar-nav">
+        <div>
+          <div class="sidebar-group-title">Materi Pembelajaran</div>
+          <ul class="sidebar-links">
+            <li class="sidebar-item-parent">
+              <a href="index.html" class="sidebar-link active-page">
+                <span class="icon"></span> PHP Native CRUD
+              </a>
+              <ul class="sidebar-sublinks" id="phpSublinks">
+                <li><a href="#part-1" class="sidebar-sublink-item" data-section="part-1">1. Login &amp; Auth</a></li>
+                <li><a href="#part-2" class="sidebar-sublink-item" data-section="part-2">2. Search &amp; Sort</a></li>
+                <li><a href="#part-3" class="sidebar-sublink-item" data-section="part-3">3. Upload File</a></li>
+                <li><a href="#part-4" class="sidebar-sublink-item" data-section="part-4">4. Modal &amp; Ajax</a></li>
+                <li><a href="#part-5" class="sidebar-sublink-item" data-section="part-5">5. Relasi 2 Tabel</a></li>
+              </ul>
+            </li>
+            <li class="sidebar-item-parent">
+              <a href="laravel.html" class="sidebar-link">
+                <span class="icon"></span> Laravel Framework
+              </a>
+              <ul class="sidebar-sublinks collapsed" id="laravelSublinks">
+                <li><a href="laravel.html#pengenalan" class="sidebar-sublink-item" data-section="pengenalan">Pengenalan Laravel</a></li>
+                <li><a href="laravel.html#part1" class="sidebar-sublink-item" data-section="part1">1. Membuat Project</a></li>
+                <li><a href="laravel.html#part2" class="sidebar-sublink-item" data-section="part2">2. Database Migration</a></li>
+                <li><a href="laravel.html#part3" class="sidebar-sublink-item" data-section="part3">3. Controller &amp; Facade DB</a></li>
+                <li><a href="laravel.html#part4" class="sidebar-sublink-item" data-section="part4">4. Create Data</a></li>
+                <li><a href="laravel.html#part5" class="sidebar-sublink-item" data-section="part5">5. Edit &amp; Delete Data</a></li>
+                <li><a href="laravel.html#part6" class="sidebar-sublink-item" data-section="part6">6. Eloquent &amp; ORM</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT WRAPPER ===== -->
+    <div class="main-content-wrapper">
+      <main class="main-content"><div class="identity-box">
+      <h3>Data Diri</h3>
+      <p><strong>Nama:</strong> Muhammad Aziz Zakaria</p>
+      <p><strong>Kelas:</strong> XI RPL 2</p>
+    </div>
+
+        <!-- ========================= PART 1 ========================= -->
+        <section class="part-section" id="part-1">
+          <div class="part-header">
+            <p class="part-label"><span class="part-label-line"></span> Login &amp; Authorization</p>
+            <h1 class="part-title">Login &amp; Authorization</h1>
+            <div class="part-meta">
+              <span>2026-05-14</span>
+              <span class="meta-dot"></span>
+              <span>🏷 Praktik</span>
+            </div>
+            <div class="part-intro">Membuat sistem login agar hanya user yang terautentikasi yang bisa
+mengakses halaman data siswa. Password dienkripsi dengan SHA1 dan
+state login disimpan di PHP Session.</div>
+          </div>
+
+          <div class="content-body">
+            
+
+            <h2 id="struktur-database">Struktur Database</h2>
+            <p>Buat tabel baru bernama <code>t_login</code> dengan struktur berikut:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">sql</span>
+              </div>
+              <pre><code class="language-sql">CREATE TABLE t_login (
+  id_login INT(11) AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100),
+  password VARCHAR(100),
+  level TINYINT(1)
+);</code></pre>
+            </div>
+
+            <p>Insert data awal (password dienkripsi SHA1 via phpMyAdmin Function):</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">sql</span>
+              </div>
+              <pre><code class="language-sql">INSERT INTO t_login (username, password, level)
+VALUES ('admin', SHA1('admin'), 1);</code></pre>
+            </div>
+
+            <div class="callout callout-note">
+              <span class="callout-icon">📝</span>
+              <div class="callout-body">
+                <p class="callout-title">Note ✨</p>
+                <div>Saat insert di phpMyAdmin, pilih Function = SHA1 pada kolom password,
+lalu ketik "admin" sebagai nilainya. Jangan ketik hash SHA1-nya manual!</div>
+              </div>
+            </div>
+
+            <h2 id="form-login">Form Login</h2>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_login.php</span>
+              </div>
+              <pre><code class="language-php">&lt;form class="form-horizontal" action="login.php" method="POST"&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label class="col-sm-2 control-label"&gt;Username&lt;/label&gt;
+    &lt;div class="col-sm-10"&gt;
+      &lt;input type="text" name="username" class="form-control" /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label class="col-sm-2 control-label"&gt;Password&lt;/label&gt;
+    &lt;div class="col-sm-10"&gt;
+      &lt;input type="password" name="password" class="form-control" /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label class="col-sm-2 control-label"&gt;&lt;/label&gt;
+    &lt;div class="col-sm-6"&gt;
+      &lt;button type="submit" class="btn btn-primary"&gt;Login&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <div class="callout callout-note">
+              <span class="callout-icon">📝</span>
+              <div class="callout-body">
+                <p class="callout-title">Note ✨</p>
+                <div>Method form adalah POST agar username &amp; password tidak tampil di URL.
+Action mengarah ke login.php yang akan memproses logika autentikasi.</div>
+              </div>
+            </div>
+
+            <h2 id="logika-login">Logika Login</h2>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">login.php</span>
+              </div>
+              <pre><code class="language-php">&lt;?php
+include 'lib/library.php';
+ 
+sudahLogin(); // Cegah user yang sudah login membuka halaman ini lagi
+ 
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+ 
+    $sql  = "SELECT * FROM t_login
+             WHERE username = '$username'
+             AND password = SHA1('$password')";
+ 
+    $data = $mysql-&gt;query($sql) or die($mysql-&gt;error);
+ 
+    if ($data-&gt;num_rows != 0) {
+        $row = mysqli_fetch_object($data);
+        $_SESSION['username'] = $row-&gt;username;
+        $_SESSION['level']    = $row-&gt;level;
+        header('location: index.php');
+    } else {
+        $error = "Username atau password salah";
+    }
+}
+ 
+include 'views/v_login.php';
+?&gt;</code></pre>
+            </div>
+
+            <div class="callout callout-warn">
+              <span class="callout-icon">☁️</span>
+              <div class="callout-body">
+                <p class="callout-title">Attention! 💥</p>
+                <div>Password dibandingkan menggunakan SHA1() langsung di query SQL,
+sehingga cocok dengan data yang tersimpan di database.</div>
+              </div>
+            </div>
+
+            <h2 id="helper-function">Helper Function</h2>
+            <p>File ini berisi fungsi-fungsi utilitas yang dipakai di seluruh aplikasi.</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">lib/helper.php</span>
+              </div>
+              <pre><code class="language-php">&lt;?php
+session_start();
+ 
+// Ganti URL sesuai folder project kamu
+function base_url() {
+    return "http://localhost/nama_project_kamu";
+}
+ 
+// Fungsi Flash Message (simpan/ambil pesan ke session)
+function flash($tipe, $pesan = '') {
+    if (empty($pesan)) {
+        $pesan = @$_SESSION[$tipe];
+        unset($_SESSION[$tipe]);
+        return $pesan;
+    } else {
+        $_SESSION[$tipe] = $pesan;
+    }
+}
+ 
+// Cek apakah user sudah login — jika belum, redirect ke login
+function checkLogin() {
+    $username = @$_SESSION['username'];
+    $level    = @$_SESSION['level'];
+    if (empty($username) AND empty($level)) {
+        header("location: login.php");
+    }
+}
+ 
+// Kebalikan checkLogin — jika sudah login, jangan buka login lagi
+function sudahLogin() {
+    $username = @$_SESSION['username'];
+    $level    = @$_SESSION['level'];
+    if (!empty($username) AND !empty($level)) {
+        header("location: index.php");
+    }
+}
+?&gt;</code></pre>
+            </div>
+
+            <div class="callout callout-note">
+              <span class="callout-icon">📝</span>
+              <div class="callout-body">
+                <p class="callout-title">Note ✨</p>
+                <div>File helper.php harus di-include di library.php dengan baris:
+  include 'lib/helper.php';
+Pastikan session_start() hanya dipanggil SATU KALI di seluruh aplikasi
+(biasanya di helper.php). Jangan panggil session_start() di file lain.</div>
+              </div>
+            </div>
+
+            <h2 id="proteksi-halaman">Proteksi Halaman</h2>
+            <p>Tambahkan checkLogin() di setiap halaman yang butuh proteksi:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;?php
+include 'lib/library.php';
+checkLogin(); // ← Tambahkan baris ini!
+ 
+$sql        = 'SELECT * FROM siswa';
+$listSiswa  = $mysqli-&gt;query($sql);
+ 
+include 'views/v_index.php';
+?&gt;</code></pre>
+            </div>
+
+            <h2 id="logout">Logout</h2>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">logout.php</span>
+              </div>
+              <pre><code class="language-php">&lt;?php
+session_start();
+session_destroy(); // Hapus semua session
+header('location: index.php');
+?&gt;</code></pre>
+            </div>
+            <p>Tambahkan tombol logout di <code>views/v_index.php</code>:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;a href="logout.php"&gt;
+  &lt;button type="submit" class="btn btn-danger"&gt;Logout&lt;/button&gt;
+&lt;/a&gt;</code></pre>
+            </div>
+          </div>
+
+          
+
+          <div class="references-box">
+            <div class="references-header">📚 Referensi</div>
+            <ul class="references-list">
+              <li>
+                <span class="ref-num">1</span>
+                <span class="ref-text"><a href="https://drive.google.com/file/d/10EjixiULC8VwLWAu8k0I3YMpogtIuJF7/view" target="_blank">Modul Pembelajaran</a></span>
+              </li>
+              <li>
+                <span class="ref-num">2</span>
+                <span class="ref-text"><a href="https://youtu.be/AZaxHHgtdnQ?si=JNdAMLiVgAcg4zm8" target="_blank">Video Pembelajaran</a></span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="part-footer-nav">
+            <span></span>
+            <a href="#part-2" class="part-nav-btn">
+              Searching, Ordering &amp; Sorting
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            </a>
+          </div>
+        </section>
+
+        <!-- ========================= PART 2 ========================= -->
+        <section class="part-section" id="part-2">
+          <div class="part-header">
+            <p class="part-label"><span class="part-label-line"></span> Searching, Ordering &amp; Sorting</p>
+            <h1 class="part-title">Searching, Ordering &amp; Sorting</h1>
+            <div class="part-meta">
+              <span>2026-05-15</span>
+              <span class="meta-dot"></span>
+              <span>🏷 Teori</span>
+            </div>
+            <div class="part-intro">Menambahkan fitur pencarian data berdasarkan NIS atau nama lengkap,
+serta fitur sorting kolom secara Ascending/Descending dengan klik
+ikon panah pada header tabel.</div>
+          </div>
+
+          <div class="content-body">
+            
+
+            <h2 id="form-pencarian">Form Pencarian</h2>
+            <p>Tambahkan form search di atas tabel data:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;form method="GET" action="index.php"&gt;
+  Cari Berdasarkan NIS dan NAMA
+  &lt;input type="text" name="search" value="&lt;?= @$search ?&gt;"&gt;
+  &lt;button type="submit"&gt;Cari&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <div class="callout callout-note">
+              <span class="callout-icon">📝</span>
+              <div class="callout-body">
+                <p class="callout-title">Note ✨</p>
+                <div>Method GET digunakan agar kata kunci pencarian tampil di URL,
+sehingga bisa di-bookmark atau dibagikan.
+Atribut value="&lt;?= @$search ?&gt;" berguna untuk menampilkan kembali
+kata yang sudah diketik user setelah form disubmit.</div>
+              </div>
+            </div>
+
+            <h2 id="logika-pencarian">Logika Pencarian</h2>
+            <h3 id="penjelasan-like-search">Penjelasan `LIKE %$search%`</h3>
+            <p>Tanda <code>%</code> di kiri dan kanan berarti "mengandung kata tersebut di posisi manapun". Contoh: <code>LIKE %khalifa%</code> akan menemukan <code>Khalifa</code>, <code>Muhammad Khalifa</code>, <code>alifkhalifa15</code>, dll.</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;?php
+include 'lib/library.php';
+checkLogin();
+ 
+$sql = 'SELECT * FROM siswa';
+ 
+// --- SEARCHING ---
+$search = @$_GET['search'];
+if (!empty($search)) {
+    $sql .= " WHERE nis LIKE '%$search%'
+              OR nama_lengkap LIKE '%$search%' ";
+}
+ 
+// --- ORDERING ---
+$order_field = @$_GET['sort'];   // Kolom yang akan diurutkan
+$order_mode  = @$_GET['order'];  // ASC atau DESC
+ 
+if (!empty($order_field) &amp;&amp; !empty($order_mode)) {
+    $sql .= " ORDER BY $order_field $order_mode";
+}
+ 
+$listSiswa = $mysqli-&gt;query($sql);
+ 
+include 'views/v_index.php';
+?&gt;</code></pre>
+            </div>
+
+            <div class="callout callout-warn">
+              <span class="callout-icon">☁️</span>
+              <div class="callout-body">
+                <p class="callout-title">Attention! 💥</p>
+                <div>Kode di atas rentan SQL Injection untuk proyek produksi.
+Untuk belajar, ini sudah cukup. Untuk produksi, gunakan
+Prepared Statement (mysqli_prepare / PDO).</div>
+              </div>
+            </div>
+
+            <h2 id="tombol-sorting">Tombol Sorting</h2>
+            <p>Tambahkan link panah ▲▼ di header tabel untuk tiap kolom yang
+ingin bisa disortir:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;table border="1"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;#&lt;/th&gt;
+      &lt;th&gt;
+        NIS
+        &lt;a href="index.php?sort=nis&amp;order=asc"&gt;▲&lt;/a&gt;
+        &lt;a href="index.php?sort=nis&amp;order=desc"&gt;▼&lt;/a&gt;
+      &lt;/th&gt;
+      &lt;th&gt;
+        Nama Lengkap
+        &lt;a href="index.php?sort=nama_lengkap&amp;order=asc"&gt;▲&lt;/a&gt;
+        &lt;a href="index.php?sort=nama_lengkap&amp;order=desc"&gt;▼&lt;/a&gt;
+      &lt;/th&gt;
+      &lt;th&gt;Jenis Kelamin&lt;/th&gt;
+      &lt;th&gt;Kelas&lt;/th&gt;
+      &lt;th&gt;Jurusan&lt;/th&gt;
+      &lt;th&gt;Aksi&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;?php while ($row = mysqli_fetch_object($listSiswa)) { ?&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;?= $i++ ?&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;?= $row-&gt;nis ?&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;?= $row-&gt;nama_lengkap ?&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;?= $row-&gt;jenis_kelamin ?&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;?= $row-&gt;kelas ?&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;?= $row-&gt;jurusan ?&gt;&lt;/td&gt;
+      &lt;td&gt;
+        &lt;a href="edit.php?nis=&lt;?= $row-&gt;nis ?&gt;"&gt;Edit&lt;/a&gt; |
+        &lt;a href="delete.php?nis=&lt;?= $row-&gt;nis ?&gt;" class="btnDelete"&gt;Delete&lt;/a&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;?php } ?&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+            </div>
+
+            <h2 id="tombol-reset-pencarian">Tombol Reset Pencarian</h2>
+            <p>Tambahkan tombol untuk mengembalikan tampilan ke kondisi semula
+(tanpa filter/sorting):</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;a href="index.php"&gt;&lt;button&gt;Reset&lt;/button&gt;&lt;/a&gt;</code></pre>
+            </div>
+          </div>
+
+          
+
+          <div class="references-box">
+            <div class="references-header">📚 Referensi</div>
+            <ul class="references-list">
+              <li>
+                <span class="ref-num">1</span>
+                <span class="ref-text"><a href="https://youtu.be/IKfqcGIAlzw?si=9VJ087KFSPQz83c5" target="_blank">Video Pembelajaran</a></span>
+              </li>
+              <li>
+                <span class="ref-num">2</span>
+                <span class="ref-text"><a href="https://drive.google.com/file/d/10DJh0iC9o24goHSYhCPdl3iUb8g3lt_x/view" target="_blank">Modul Pembelajaran</a></span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="part-footer-nav">
+            <a href="#part-1" class="part-nav-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+              Login &amp; Authorization
+            </a>
+            <a href="#part-3" class="part-nav-btn">
+              Upload File
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            </a>
+          </div>
+        </section>
+
+        <!-- ========================= PART 3 ========================= -->
+        <section class="part-section" id="part-3">
+          <div class="part-header">
+            <p class="part-label"><span class="part-label-line"></span> Upload File</p>
+            <h1 class="part-title">Upload File</h1>
+            <div class="part-meta">
+              <span>2026-05-16</span>
+              <span class="meta-dot"></span>
+              <span>🏷 Teori</span>
+            </div>
+            <div class="part-intro">Menambahkan fitur upload foto ke form tambah dan edit data siswa.
+Foto disimpan di folder media/images/ dan nama filenya dicatat
+di kolom "file" pada tabel siswa.</div>
+          </div>
+
+          <div class="content-body">
+            
+
+            <h2 id="alter-table-siswa">Alter Table Siswa</h2>
+            <p>Tambahkan kolom "file" untuk menyimpan nama file foto:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">sql</span>
+              </div>
+              <pre><code class="language-sql">ALTER TABLE t_siswa ADD COLUMN file VARCHAR(100);</code></pre>
+            </div>
+
+            <h2 id="buat-folder-untuk-menyimpan-file">Buat Folder untuk menyimpan file</h2>
+            <p>Buat folder baru di dalam project kamu:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">php</span>
+              </div>
+              <pre><code class="language-bash">nama_project/
+  media/
+   images/   ← tempat menyimpan foto upload</code></pre>
+            </div>
+
+            <div class="callout callout-warn">
+              <span class="callout-icon">☁️</span>
+              <div class="callout-body">
+                <p class="callout-title">Attention! 💥</p>
+                <div>Folder ini harus ada sebelum upload dilakukan, karena PHP tidak
+otomatis membuat folder. Jika folder tidak ada, upload akan gagal.</div>
+              </div>
+            </div>
+
+            <p>Tambahkan enctype pada tag <code>&lt;form&gt;</code>:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_tambah.php</span>
+              </div>
+              <pre><code class="language-php">&lt;form class="form-horizontal"
+      action="&lt;?= $url ?&gt;"
+      method="POST"
+      enctype="multipart/form-data"&gt;</code></pre>
+            </div>
+
+            <div class="callout callout-note">
+              <span class="callout-icon">📝</span>
+              <div class="callout-body">
+                <p class="callout-title">Note ✨</p>
+                <div>enctype="multipart/form-data" WAJIB ada jika form memiliki input
+bertipe file. Tanpa ini, file tidak akan terkirim ke server.</div>
+              </div>
+            </div>
+
+            <p>Tambahkan field foto di dalam form:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">html</span>
+              </div>
+              <pre><code class="language-php">&lt;div class="form-group"&gt;
+  &lt;label class="col-sm-2 control-label"&gt;Foto&lt;/label&gt;
+  &lt;div class="col-sm-6"&gt;
+ 
+    &lt;?php if ($form == "edit") { ?&gt;
+      // Tampilkan foto lama saat mode edit 
+      &lt;img src="&lt;?= base_url() ?&gt;/media/images/&lt;?= @$result-&gt;file ?&gt;"
+           width="80px" alt="" /&gt;
+      // Hidden input untuk menjaga nama file lama jika tidak diganti
+      &lt;input type="hidden" name="foto" value="&lt;?= @$result-&gt;file ?&gt;" /&gt;
+    &lt;?php } ?&gt;
+ 
+    &lt;input type="file" name="foto" /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <div class="callout callout-note">
+              <span class="callout-icon">📝</span>
+              <div class="callout-body">
+                <p class="callout-title">Note ✨</p>
+                <div>Input type="hidden" name="foto" menyimpan nama file lama agar
+ketika user edit data tapi tidak ganti foto, foto lama tidak hilang.</div>
+              </div>
+            </div>
+
+            <h2 id="proses-upload">Proses Upload</h2>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">tambah.php</span>
+              </div>
+              <pre><code class="language-php">&lt;?php
+include 'db/koneksi.php';
+include 'lib/lib.php';
+ 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nis            = @$_POST['nis'];
+    $nama_lengkap   = @$_POST['nama_lengkap'];
+    $jenis_kelamin  = @$_POST['jenis_kelamin'];
+    $alamat         = @$_POST['alamat'];
+    $no_telp        = @$_POST['no_telp'];
+    $kelas          = @$_POST['id_kelas'];
+    $foto           = $_FILES['foto'];     // Ambil data file dari $_FILES
+ 
+    // Cek apakah user mengupload file?
+    if (!empty($foto) AND $foto['error'] == 0) {
+        $path   = "./media/images/";
+        $upload = move_uploaded_file($foto['tmp_name'],
+                                     $path . $foto['name']);
+ 
+        if (!$upload) {
+            flash('error', "Upload file gagal");
+            header('location: index.php');
+            exit;
+        }
+        $file = $foto['name'];
+    }
+ 
+    $sql = "INSERT INTO t_siswa
+            (nis, nama_lengkap, jenis_kelamin, alamat, no_telp, id_kelas, file)
+            VALUES
+            ('$nis','$nama_lengkap','$jenis_kelamin','$alamat','$no_telp','$kelas','$file')";
+ 
+    if ($mysql-&gt;query($sql)) {
+        flash('success', "Data berhasil ditambahkan.");
+    } else {
+        $error = "Error. " . $mysql-&gt;error;
+    }
+}
+ 
+// Ambil data kelas untuk dropdown
+$sql        = "SELECT * FROM kelas";
+$dataKelas  = $mysqli-&gt;query($sql) or die($mysqli-&gt;error);
+ 
+$form = "add";
+$url  = "tambah.php";
+include 'views/v_form_siswa.php';
+?&gt;</code></pre>
+            </div>
+
+            <h3 id="proses-upload-saat-edit-bagian-upload">Proses Upload saat Edit (bagian upload)</h3>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">edit.php</span>
+              </div>
+              <pre><code class="language-php">$kelas  = $_POST['id_kelas'];
+$file   = $_POST['foto'];    // Ambil nama file dari hidden input (file lama)
+$foto   = $_FILES['foto'];   // Ambil file baru jika ada
+ 
+// Jika user upload file baru:
+if (!empty($foto) AND $foto['error'] == 0) {
+    $path   = './media/images/';
+    $upload = move_uploaded_file($foto['tmp_name'],
+                                 $path . $foto['name']);
+    if (!$upload) {
+        flash('error', "Upload file gagal");
+        header('location: index.php');
+        exit;
+    }
+    $file = $foto['name']; // Ganti nama file dengan yang baru
+}
+ 
+$sql = "UPDATE t_siswa SET
+        nama_lengkap   = '$nama_lengkap',
+        jenis_kelamin  = '$jenis_kelamin',
+        alamat         = '$alamat',
+        no_telp        = '$no_telp',
+        id_kelas       = '$kelas',
+        file           = '$file'
+        WHERE nis = '$nis'";</code></pre>
+            </div>
+
+            <h2 id="menampilkan-foto-di-tabel">Menampilkan Foto di Tabel</h2>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;td&gt;
+  &lt;img src="&lt;?= base_url() ?&gt;/media/images/&lt;?= $row-&gt;file ?&gt;"
+       width="80px" alt="" /&gt;
+&lt;/td&gt;</code></pre>
+            </div>
+          </div>
+
+          
+
+          <div class="references-box">
+            <div class="references-header">📚 Referensi</div>
+            <ul class="references-list">
+              <li>
+                <span class="ref-num">1</span>
+                <span class="ref-text"><a href="https://youtu.be/IKfqcGIAlzw?si=9VJ087KFSPQz83c5" target="_blank">Video Pembelajaran</a></span>
+              </li>
+              <li>
+                <span class="ref-num">2</span>
+                <span class="ref-text"><a href="https://drive.google.com/file/d/10Rj-ACKvFGYispGEYBN69_IjPnkYuekq/view" target="_blank">Modul Pembelajaran</a></span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="part-footer-nav">
+            <a href="#part-2" class="part-nav-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+              Searching, Ordering &amp; Sorting
+            </a>
+            <a href="#part-4" class="part-nav-btn">
+              Bootstrap Modal &amp; Ajax
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            </a>
+          </div>
+        </section>
+
+        <!-- ========================= PART 4 ========================= -->
+        <section class="part-section" id="part-4">
+          <div class="part-header">
+            <p class="part-label"><span class="part-label-line"></span> Bootstrap Modal &amp; Ajax</p>
+            <h1 class="part-title">Bootstrap Modal &amp; Ajax</h1>
+            <div class="part-meta">
+              <span>2026-05-17</span>
+              <span class="meta-dot"></span>
+              <span>🏷 Praktik</span>
+            </div>
+            <div class="part-intro">Mengganti konfirmasi hapus biasa (browser confirm) dengan Bootstrap
+Modal yang lebih elegan. Proses hapus dilakukan via Ajax tanpa
+reload halaman, dan notifikasi sukses ditampilkan menggunakan
+library Toastr.</div>
+          </div>
+
+          <div class="content-body">
+            
+
+            <h2 id="tambahkan-dependency">Tambahkan Dependency</h2>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_index.php</span>
+              </div>
+              <pre><code class="language-php">// jQuery &amp; Bootstrap JS 
+&lt;script type="text/javascript"
+  src="&lt;?= base_url() ?&gt;/media/js/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"
+  src="&lt;?= base_url() ?&gt;/media/js/bootstrap.min.js"&gt;&lt;/script&gt;
+ 
+// Toastr (notifikasi) 
+&lt;link href="&lt;?= base_url() ?&gt;/media/plugins/toastr/toastr.min.css"
+      rel="stylesheet"&gt;
+&lt;script type="text/javascript"
+  src="&lt;?= base_url() ?&gt;/media/plugins/toastr/toastr.min.js"&gt;&lt;/script&gt;</code></pre>
+            </div>
+
+            <div class="callout callout-note">
+              <span class="callout-icon">📝</span>
+              <div class="callout-body">
+                <p class="callout-title">Note ✨</p>
+                <div>Pastikan file jquery.min.js, bootstrap.min.js, dan toastr sudah
+ada di folder media/ project kamu. Download dari situs resminya.</div>
+              </div>
+            </div>
+
+            <h3 id="tambahkan-struktur-modal">Tambahkan Struktur Modal</h3>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;div class="modal fade" tabindex="-1" role="dialog"&gt;
+  &lt;div class="modal-dialog"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;button type="button" class="close"
+                data-dismiss="modal"&gt;&amp;times;&lt;/button&gt;
+        &lt;h4 class="modal-title"&gt;&lt;/h4&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-body"&gt;
+        // Pesan konfirmasi akan diisi via JavaScript 
+      &lt;/div&gt;
+      &lt;div class="modal-footer"&gt;
+        &lt;button type="button" class="btn btn-primary btnYa"&gt;Ya&lt;/button&gt;
+        &lt;button type="button" class="btn btn-danger"
+                data-dismiss="modal"&gt;Tidak&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <p>Tambahkan class <code>btnDelete</code> pada tombol Delete</p>
+            <p>Di dalam loop tampil data, ubah tombol Delete menjadi:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;a href="delete.php?nis=&lt;?= $row-&gt;nis ?&gt;"
+   class="btn btn-danger btnDelete"&gt;
+  &lt;i class="glyphicon glyphicon-trash"&gt;&lt;/i&gt;
+&lt;/a&gt;</code></pre>
+            </div>
+
+            <h2 id="javascript-untuk-modal-ajax">Javascript untuk Modal &amp; Ajax</h2>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_index.php</span>
+              </div>
+              <pre><code class="language-javascript">&lt;script type="text/javascript"&gt;
+$(function() {
+ 
+  // Tangkap event klik pada tombol .btnDelete
+  $(".btnDelete").on("click", function(e) {
+    e.preventDefault(); // Batalkan aksi href default
+ 
+    // Ambil nama dari kolom ke-2 di baris yang diklik
+    var nama = $(this).parent().parent().children()[2];
+    nama = $(nama).html();
+ 
+    // Simpan baris (tr) yang diklik
+    var tr = $(this).parent().parent();
+ 
+    // Ambil URL dari atribut href tombol
+    var href = $(this).attr('href');
+ 
+    // Tampilkan modal
+    $(".modal").modal('show');
+    $(".modal-title").html('Konfirmasi');
+    $(".modal-body").html('Anda yakin ingin menghapus data &lt;b&gt;' + nama + '&lt;/b&gt; ?');
+ 
+    // Hapus event lama, pasang event baru pada tombol "Ya"
+    $('.btnYa').off();
+    $('.btnYa').on('click', function() {
+      $.ajax({
+        'url'    : href,
+        'type'   : 'POST',
+        'success': function(result) {
+          if (result == 1) {
+            $(".modal").modal('hide');
+            tr.fadeOut(); // Sembunyikan baris yang dihapus
+            toastr.success('Data berhasil dihapus', 'Informasi');
+          }
+        }
+      });
+    });
+ 
+  });
+ 
+});
+&lt;/script&gt;</code></pre>
+            </div>
+
+            <p><strong>Penjelasan Alur:</strong></p>
+            <ul>
+              <li>User klik tombol Delete → muncul Modal konfirmasi</li>
+              <li>User klik "Ya" → Ajax POST ke delete.php</li>
+              <li>delete.php memproses dan return angka 1 (sukses) atau 0 (gagal)</li>
+              <li>Jika result == 1 → baris tabel di-fadeOut + notifikasi Toastr</li>
+            </ul>
+
+            <hr>
+            <p>Modifikasi <code>delete.php</code> — return 1 atau 0</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">delete.php</span>
+              </div>
+              <pre><code class="language-php">&lt;?php
+include 'db/koneksi.php';
+ 
+$nis = $_GET['nis'];
+if (!empty($nis)) {
+    $sql = "DELETE FROM t_siswa WHERE nis = '$nis'";
+ 
+    if ($mysql-&gt;query($sql)) {
+        echo 1; // Sukses → digunakan oleh Ajax
+    } else {
+        echo 0; // Gagal
+    }
+}
+?&gt;</code></pre>
+            </div>
+
+            <div class="callout callout-warn">
+              <span class="callout-icon">☁️</span>
+              <div class="callout-body">
+                <p class="callout-title">Attention! 💥</p>
+                <div>Setelah diubah untuk Ajax, delete.php tidak lagi melakukan
+header redirect ke index.php. Return value-nya hanya angka
+1 atau 0 yang dibaca oleh JavaScript.</div>
+              </div>
+            </div>
+
+            <p><strong>Catatan angka kolom di JavaScript:</strong></p>
+            <ul>
+              <li>$(this).parent().parent().children()[2]</li>
+              <li>Angka [2] merujuk ke kolom ke-3 (index dari 0). Sesuaikan</li>
+              <li>angkanya dengan posisi kolom nama di tabel kamu!</li>
+            </ul>
+          </div>
+
+          
+
+          <div class="references-box">
+            <div class="references-header">📚 Referensi</div>
+            <ul class="references-list">
+              <li>
+                <span class="ref-num">1</span>
+                <span class="ref-text"><a href="https://youtu.be/ipCOAZx7140?si=vJOq6ZkgXancy-SU" target="_blank">Video Pembelajaran</a></span>
+              </li>
+              <li>
+                <span class="ref-num">2</span>
+                <span class="ref-text"><a href="https://drive.google.com/file/d/10SI5yT5853NtYQqq5825jpHe4KoFMEBZ/view" target="_blank">Modul Pembelajaran</a></span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="part-footer-nav">
+            <a href="#part-3" class="part-nav-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+              Upload File
+            </a>
+            <a href="#part-5" class="part-nav-btn">
+              CRUD Relasi 2 Tabel
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            </a>
+          </div>
+        </section>
+
+        <!-- ========================= PART 5 ========================= -->
+        <section class="part-section" id="part-5">
+          <div class="part-header">
+            <p class="part-label"><span class="part-label-line"></span> CRUD Relasi 2 Tabel</p>
+            <h1 class="part-title">CRUD Relasi 2 Tabel</h1>
+            <div class="part-meta">
+              <span>2026-05-18</span>
+              <span class="meta-dot"></span>
+              <span>🏷 Praktik</span>
+            </div>
+            <div class="part-intro">Membangun relasi antara tabel siswa dan tabel kelas, sehingga
+pilihan kelas pada form tambah/edit bersifat dinamis — diambil
+dari database, bukan ditulis hardcode.</div>
+          </div>
+
+          <div class="content-body">
+            
+
+            <h2 id="buat-tabel-kelas">Buat Tabel Kelas</h2>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">sql</span>
+              </div>
+              <pre><code class="language-sql">CREATE TABLE kelas (
+  id_kelas   INT(11) AUTO_INCREMENT PRIMARY KEY,
+  nama_kelas VARCHAR(15),
+  jurusan    VARCHAR(50)
+);
+ 
+-- Insert beberapa data contoh
+INSERT INTO kelas (nama_kelas, jurusan) VALUES
+  ('XI RPL 1', 'Rekayasa Perangkat Lunak'),
+  ('XI RPL 2', 'Rekayasa Perangkat Lunak'),
+  ('XII RPL 1', 'Rekayasa Perangkat Lunak');</code></pre>
+            </div>
+
+            <h3 id="modifikasi-tabel-siswa">Modifikasi Tabel Siswa</h3>
+            <p>Langkah-langkah:</p>
+            <ul>
+              <li>TRUNCATE tabel siswa dulu (kosongkan data):
+Di phpMyAdmin → tab Operations → "Empty the table (TRUNCATE)"</li>
+            </ul>
+
+            <div class="callout callout-warn">
+              <span class="callout-icon">☁️</span>
+              <div class="callout-body">
+                <p class="callout-title">Attention! 💥</p>
+                <div>TRUNCATE hanya mengosongkan data, tabel tetap ada.
+DROP menghapus tabel beserta strukturnya secara permanen!</div>
+              </div>
+            </div>
+
+            <ul>
+              <li>ALTER TABLE — ganti kolom kelas menjadi id_kelas:</li>
+            </ul>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">sql</span>
+              </div>
+              <pre><code class="language-sql">ALTER TABLE t_siswa
+  CHANGE kelas id_kelas INT(11);</code></pre>
+            </div>
+
+            <h2 id="query-dengan-inner-join">Query dengan INNER JOIN</h2>
+            <p>Ubah query di index.php untuk menyertakan data dari tabel kelas:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;?php
+include 'db/koneksi.php';
+ 
+$success = flash('success');
+$error   = flash('error');
+ 
+cekLogin();
+ 
+// Gunakan INNER JOIN untuk menggabungkan data siswa dan kelas
+$sql  = 'SELECT * FROM siswa
+         INNER JOIN kelas ON (siswa.id_kelas = kelas.id_kelas)';
+$data = $mysql-&gt;query($sql) or die($mysql-&gt;error);
+ 
+include 'views/v_index.php';
+?&gt;</code></pre>
+            </div>
+
+            <h3 id="tampilkan-nama-kelas-di-tabel">Tampilkan Nama Kelas di Tabel</h3>
+            <p>Karena sudah di-JOIN, gunakan nama_kelas (dari tabel kelas):</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_index.php</span>
+              </div>
+              <pre><code class="language-php">&lt;td&gt;&lt;?= $siswa['nis'] ?&gt;&lt;/td&gt;
+&lt;td&gt;&lt;?= $siswa['nama_lengkap'] ?&gt;&lt;/td&gt;
+&lt;td&gt;&lt;?= $siswa['jenis_kelamin'] ?&gt;&lt;/td&gt;
+&lt;td&gt;&lt;?= $siswa['nama_kelas'] ?&gt;&lt;/td&gt;   &lt;!-- bukan $siswa['kelas'] lagi! --&gt;
+&lt;td&gt;&lt;?= $siswa['jurusan'] ?&gt;&lt;/td&gt;</code></pre>
+            </div>
+
+            <div class="callout callout-warn">
+              <span class="callout-icon">☁️</span>
+              <div class="callout-body">
+                <p class="callout-title">Attention! 💥</p>
+                <div>nama_kelas adalah nama field dari tabel kelas (bukan tabel siswa).
+Jika masih menggunakan $siswa['kelas'], akan muncul error undefined.</div>
+              </div>
+            </div>
+
+            <h3 id="dropdown-kelas-dinamis">Dropdown Kelas Dinamis</h3>
+            <p>Di <code>tambah.php</code>, ambil data kelas sebelum include view:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">tambah.php</span>
+              </div>
+              <pre><code class="language-php">// Ambil data kelas untuk ditampilkan di dropdown
+$sql        = "SELECT * FROM kelas";
+$dataKelas  = $mysqli-&gt;query($sql) or die($mysqli-&gt;error);
+ 
+$form = "add";
+$url  = "tambah.php";
+include 'views/v_form_siswa.php';</code></pre>
+            </div>
+
+            <p>Di view form (views/v_form_siswa.php), buat dropdown:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">views/v_form_siswa.php</span>
+              </div>
+              <pre><code class="language-php">&lt;div class="form-group"&gt;
+  &lt;label&gt;Kelas&lt;/label&gt;
+  &lt;select name="id_kelas" class="select1"&gt;
+    &lt;option value=""&gt;[ Pilih Kelas ]&lt;/option&gt;
+    &lt;?php while ($murid = @$dataKelas-&gt;fetch_array()) { ?&gt;
+      &lt;option value="&lt;?= $murid['id_kelas'] ?&gt;"
+        &lt;?= @$siswa['id_kelas'] == $murid['id_kelas'] ? 'selected' : '' ?&gt;&gt;
+        &lt;?= $murid['nama_kelas'] ?&gt;
+      &lt;/option&gt;
+    &lt;?php } ?&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <p>Penjelasan logika <code>selected</code>:</p>
+            <ul>
+              <li>Baris ternary operator mengecek apakah id_kelas siswa sama dengan</li>
+              <li>id_kelas pada iterasi loop. Jika sama → tambahkan atribut selected</li>
+              <li>agar opsi tersebut tampil terpilih saat mode edit.</li>
+            </ul>
+
+            <h3 id="simpan-id-kelas-saat-insert">Simpan id_kelas saat insert</h3>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">tambah.php</span>
+              </div>
+              <pre><code class="language-php">$nis            = $_POST['nis'];
+$nama_lengkap   = $_POST['nama_lengkap'];
+$jenis_kelamin  = $_POST['jenis_kelamin'];
+$alamat         = $_POST['alamat'];
+$no_telp        = $_POST['no_telp'];
+$kelas          = $_POST['id_kelas']; // ← Ambil id_kelas dari form
+ 
+// ...proses upload foto...
+ 
+$sql = "INSERT INTO t_siswa
+        (nis, nama_lengkap, jenis_kelamin, alamat, no_telp, id_kelas, file)
+        VALUES
+        ('$nis','$nama_lengkap','$jenis_kelamin','$alamat','$no_telp','$kelas','$file')";</code></pre>
+            </div>
+
+            <h3 id="update-id-kelas-saat-edit">Update id_kelas saat edit</h3>
+            <p>Di edit.php, tambahkan pengambilan data kelas untuk dropdown,
+dan sertakan id_kelas di query UPDATE:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">edit.php</span>
+              </div>
+              <pre><code class="language-php">// Ambil data kelas
+$sql        = "SELECT * FROM t_kelas";
+$dataKelas  = $mysql-&gt;query($sql) or die($mysql-&gt;error);
+ 
+// ...setelah blok POST...
+ 
+$form = "edit";
+$url  = "edit.php";
+include 'views/v_form_siswa.php';</code></pre>
+            </div>
+
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">edit.php</span>
+              </div>
+              <pre><code class="language-php">// Dalam blok POST:
+$kelas = $_POST['id_kelas'];
+ 
+$sql = "UPDATE t_siswa SET
+        nama_lengkap  = '$nama_lengkap',
+        jenis_kelamin = '$jenis_kelamin',
+        alamat        = '$alamat',
+        no_telp       = '$no_telp',
+        id_kelas      = '$kelas',    -- ← sertakan di UPDATE
+        file          = '$file'
+        WHERE nis = '$nis'";</code></pre>
+            </div>
+
+            <h2 id="tampilkan-pesan-error-success">Tampilkan Pesan Error/Success</h2>
+            <p>Tambahkan blok ini di atas form:</p>
+            <div class="code-block">
+              <div class="code-titlebar">
+                <div class="traffic-lights"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+                <span class="code-filename">html</span>
+              </div>
+              <pre><code class="language-php">&lt;?php if (!empty($success)) { ?&gt;
+  &lt;div class="alert alert-success"&gt;
+    &lt;p&gt;&lt;?= $success ?&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;?php } ?&gt;
+ 
+&lt;?php if (!empty($error)) { ?&gt;
+  &lt;div class="alert alert-danger"&gt;
+    &lt;?= $error ?&gt;
+  &lt;/div&gt;
+&lt;?php } ?&gt;</code></pre>
+            </div>
+          </div>
+
+          
+
+          <div class="references-box">
+            <div class="references-header">📚 Referensi</div>
+            <ul class="references-list">
+              <li>
+                <span class="ref-num">1</span>
+                <span class="ref-text"><a href="https://youtu.be/PQZrFAL0B5c?si=OyfjmqNpf4HuMm0g" target="_blank">Video Pembelajaran</a></span>
+              </li>
+              <li>
+                <span class="ref-num">2</span>
+                <span class="ref-text"><a href="https://drive.google.com/file/d/10SrUAL9tdbR6AG-PkLF09YD6VH1WmZ0s/view" target="_blank">Modul Pembelajaran</a></span>
+              </li>
+            </ul>
+          </div>
+        </section>
+      <div class="footer-bottom">
+        <span>© 2026 Muhammad Aziz Zakaria · CRUD PHP Native</span>
+      </div>
+      </main>
+
+    </div><!-- end main-content-wrapper -->
+  </div><!-- end app-container -->
+
+  <!-- end layout -->
+
+  <!-- PrismJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup-templating.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+
+  <!-- Our Script -->
+  <script src="script.js"></script>
+
+
+
+</body></html>
